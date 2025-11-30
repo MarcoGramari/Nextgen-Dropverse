@@ -1,0 +1,48 @@
+.home-container {
+  padding: 20px;
+}
+
+.post-box {
+  background: #141414;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.post-box textarea {
+  width: 100%;
+  height: 70px;
+  background: #0c0c0c;
+  border: none;
+  outline: none;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  resize: none;
+}
+
+.post-box button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #00aaff;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.feed .post {
+  background: #111;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.feed .post strong {
+  font-size: 15px;
+}
+
+.feed .post span {
+  color: #777;
+  font-size: 12px;
+}

@@ -1,0 +1,13 @@
+/* =========================== */
+/* FOOTER — TRANSMISSÃO FINAL */
+/* =========================== */
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 18px;
+    margin-top: 40px;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(100, 100, 255, 0.3);
+    background: rgba(5, 5, 15, 0.7);
+}

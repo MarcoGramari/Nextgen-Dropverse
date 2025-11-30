@@ -1,0 +1,22 @@
+/* =========================== */
+/* CONFIGURAÇÕES — CONSOLE TÉCNICO */
+/* =========================== */
+
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-section {
+    background: rgba(10, 15, 30, 0.75);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--cosmic-purple);
+    box-shadow: var(--glow);
+    margin-bottom: 20px;
+}
+
+.settings-section h3 {
+    color: var(--alien-green);
+}

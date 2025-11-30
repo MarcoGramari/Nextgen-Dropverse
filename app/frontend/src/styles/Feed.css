@@ -1,0 +1,47 @@
+/* =========================== */
+/* FEED — MURAL DE TRANSMISSÃO */
+/* =========================== */
+
+.feed-container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+.post {
+    background: rgba(20, 25, 50, 0.75);
+    border: 1px solid var(--cosmic-purple);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 18px;
+    box-shadow: var(--glow);
+}
+
+.post .author {
+    color: var(--alien-green);
+    font-weight: bold;
+}
+
+.post img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.post .actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.post button {
+    background: none;
+    border: none;
+    color: var(--cosmic-blue);
+    cursor: pointer;
+}
+
+.post button:hover {
+    color: var(--alien-green);
+    text-shadow: 0 0 10px var(--alien-green);
+}

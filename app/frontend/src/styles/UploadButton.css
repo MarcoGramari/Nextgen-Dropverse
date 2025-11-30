@@ -1,0 +1,19 @@
+/* =========================== */
+/* BOTÃO DE UPLOAD — MÓDULO DE CARGA */
+/* =========================== */
+
+.upload-btn {
+    padding: 10px 16px;
+    border-radius: 10px;
+    background: var(--cosmic-purple);
+    border: none;
+    cursor: pointer;
+    color: white;
+    box-shadow: var(--glow);
+    transition: 0.3s;
+}
+
+.upload-btn:hover {
+    background: var(--cosmic-blue);
+    box-shadow: 0 0 18px var(--cosmic-blue);
+}
