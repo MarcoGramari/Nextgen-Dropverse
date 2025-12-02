@@ -3,8 +3,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import LoginRegister from "./pages/LoginRegister";
 import Dashboard from "./pages/Dashboard";
 import ProductDetails from "./pages/ProductDetails";
 import Profile from "./pages/Profile";
@@ -18,8 +17,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={isLogged ? <Navigate to="/home" /> : <Login />} />
-        <Route path="/register" element={isLogged ? <Navigate to="/home" /> : <Register />} />
+        <Route path="/" element={isLogged ? <Navigate to="/home" /> : <LoginRegister />} />
 
         <Route element={isLogged ? <Layout /> : <Navigate to="/" />}>
           <Route path="home" element={<Home />} />

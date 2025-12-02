@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/Home.css";
+import "../styles/Layout.css";
 
 export default function Home() {
   const [posts, setPosts] = useState([
