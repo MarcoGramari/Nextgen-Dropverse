@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+// src/pages/SettingsPage.jsx
+import React from "react";
 import "../styles/Settings.css";
 
-export default function Settings() {
-  const [lang, setLang] = useState("pt");
-  const [theme, setTheme] = useState("dark");
-
+export default function SettingsPage() {
   return (
-    <div className="settings-container">
-      <h2>Configurações</h2>
-
-      <div className="setting-box">
-        <label>Idioma</label>
-        <select value={lang} onChange={e => setLang(e.target.value)}>
-          <option value="pt">Português</option>
-          <option value="en">Inglês</option>
-        </select>
+    <section className="page-settings">
+      <h1>Configurações</h1>
+      <div className="settings-grid">
+        <div className="settings-card panel">
+          <h3>Conta</h3>
+          <p className="muted">Gerencie seu e-mail e senha</p>
+        </div>
+        <div className="settings-card panel">
+          <h3>Preferências</h3>
+          <p className="muted">Tema, notificações e privacidade</p>
+        </div>
       </div>
-
-      <div className="setting-box">
-        <label>Tema</label>
-        <select value={theme} onChange={e => setTheme(e.target.value)}>
-          <option value="dark">Escuro</option>
-          <option value="light">Claro</option>
-        </select>
-      </div>
-
-      <button className="save-btn">Salvar alterações</button>
-    </div>
+    </section>
   );
 }

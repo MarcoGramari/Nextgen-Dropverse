@@ -1,38 +1,22 @@
-import React, { useState } from "react";
+// src/pages/ProfilePage.jsx
+import React from "react";
 import "../styles/Profile.css";
 
-export default function Profile() {
-  const [avatar, setAvatar] = useState(null);
-
-  const uploadPic = (e) => {
-    const file = e.target.files[0];
-    if (file) setAvatar(URL.createObjectURL(file));
-  };
-
+export default function ProfilePage() {
   return (
-    <div className="profile-container">
-      <div className="profile-header">
-        <label className="avatar-upload">
-          <input type="file" onChange={uploadPic} />
-          <img
-            src={avatar || "https://via.placeholder.com/150"}
-            alt="avatar"
-          />
-        </label>
-
+    <section className="page-profile">
+      <div className="profile-header panel">
+        <div className="profile-avatar" />
         <div className="profile-info">
-          <h2>@gramari</h2>
-          <p>TESTE</p>
+          <h2>Nome do Usuário</h2>
+          <p className="muted">@usuario · Membro desde 2024</p>
         </div>
       </div>
 
-      <h3>Publicações</h3>
-
-      <div className="posts-grid">
-        <div className="post-mini"></div>
-        <div className="post-mini"></div>
-        <div className="post-mini"></div>
+      <div className="profile-section panel">
+        <h3>Sobre</h3>
+        <p>Artista digital, criador e membro da comunidade.</p>
       </div>
-    </div>
+    </section>
   );
 }

@@ -1,43 +1,21 @@
-/* =========================== */
-/* TELA INICIAL — ÁREA DE DECOLAGEM */
-/* =========================== */
-
-.landing-container {
-    width: 100%;
-    height: 100vh;
-    background: radial-gradient(circle at center, #120e2a, #050510);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+/* index.css — regras globais do projeto */
+:root{
+  --accent-cyan: #00ffee;
+  --accent-green: #2aff9c;
+  --text-primary: #dffdf7;
+  --text-muted: #96a8bf;
 }
 
-.landing-title {
-    font-size: 3.3rem;
-    color: var(--alien-green);
-    text-shadow: 0 0 20px var(--alien-green);
-    margin-bottom: 1rem;
-}
+* { box-sizing: border-box; }
+html,body,#root { height:100%; margin:0; font-family: 'Inter', sans-serif; background: linear-gradient(180deg,#07121a,#020306); color:var(--text-primary); }
 
-.landing-subtitle {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-}
+/* utilitários */
+.row { display:flex; gap:12px; align-items:center; }
+.col { display:flex; flex-direction:column; gap:8px; }
 
-.landing-button {
-    margin-top: 2.2rem;
-    padding: 14px 26px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    background: var(--cosmic-purple);
-    color: #fff;
-    box-shadow: 0 0 12px var(--cosmic-purple);
-    transition: 0.3s;
-}
+/* links */
+a { color: var(--accent-cyan); text-decoration: none; }
+a:hover { text-decoration: underline; }
 
-.landing-button:hover {
-    background: var(--cosmic-blue);
-    box-shadow: 0 0 18px var(--cosmic-blue);
-}
+/* small forms */
+.form-inline { display:flex; gap:8px; align-items:center; }

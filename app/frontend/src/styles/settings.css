@@ -1,22 +1,26 @@
-/* =========================== */
-/* CONFIGURAÇÕES — CONSOLE TÉCNICO */
-/* =========================== */
-
-.settings-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
+/* settings.css — painel de configurações */
+.settings-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 12px;
 }
 
-.settings-section {
-    background: rgba(10, 15, 30, 0.75);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid var(--cosmic-purple);
-    box-shadow: var(--glow);
-    margin-bottom: 20px;
+.settings-card {
+  padding:12px;
+  border-radius:10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
+  border:1px solid rgba(255,255,255,0.02);
 }
 
-.settings-section h3 {
-    color: var(--alien-green);
+.field-row { display:flex; gap:8px; align-items:center; }
+.save-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
+.save-actions button {
+  padding:8px 14px;
+  border:none;
+  border-radius:6px;
+  background: var(--accent-green, #2aff9c);
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+  transition: background 0.2s;
 }

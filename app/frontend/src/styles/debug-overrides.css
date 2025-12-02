@@ -1,42 +1,14 @@
-/* debug-overrides.css — APLIQUE SÓ TEMPORARIAMENTE */
-.layout-container, .main-content, #outlet-wrapper {
-  min-height: unset !important;
-  outline: unset !important;
+/* debug-overrides.css — regras leves para dev (não use em prod) */
+/* Apenas helpers não-invasivos para debugging visual */
+
+.dbg-outline * {
+  outline: 1px dashed rgba(255,255,255,0.03);
 }
 
-* {
-  transition: unset !important;
+.hide-on-debug {
+  display: none !important;
 }
 
-/* força visibilidade caso algum CSS esteja usando display:none ou visibility:hidden */
-*[style*="display:none"], .hidden, .d-none {
-  display: unset !important;
-  opacity: unset !important;
-  visibility: unset !important;
-}
-
-/* força z-index alto no main so pra garantir que a sidebar não cubra */
-.main-content {
-  z-index: unset !important;
-  position: unset !important;
-  background-clip: unset;
-}
-
-/* mostra caixas para inspecionar se overlay existe */
-#outlet-wrapper {
-  border: unset !important;
-  padding: unset !important;
-}
-
-/* DEBUG: Força visibilidade do login */
-.auth-page, .auth-card {
-  background: unset !important;
-  min-height: unset !important;
-  display: unset !important;
-  align-items: unset !important;
-  justify-content: unset !important;
-  padding: unset !important;
-  border-radius: unset !important;
-  box-shadow: unset !important;
-  min-width: unset !important;
-}
+/* utilities para alinhar durante o debug */
+.center-xy { display:flex; justify-content:center; align-items:center; }
+.flex-col { display:flex; flex-direction:column; }

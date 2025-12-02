@@ -2,7 +2,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaHome, FaUser, FaCog, FaChartBar, FaSignOutAlt } from "react-icons/fa";
-import "../styles/Sidebar.css"; // optional external CSS
 
 export default function Sidebar({ onLogout }) {
   const location = useLocation();

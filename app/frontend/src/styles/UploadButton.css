@@ -1,19 +1,33 @@
-/* =========================== */
-/* BOTÃO DE UPLOAD — MÓDULO DE CARGA */
-/* =========================== */
-
+/* UploadButton.css — botão / dropzone estilizado */
 .upload-btn {
-    padding: 10px 16px;
-    border-radius: 10px;
-    background: var(--cosmic-purple);
-    border: none;
-    cursor: pointer;
-    color: white;
-    box-shadow: var(--glow);
-    transition: 0.3s;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 14px;
+  border-radius:10px;
+  background: linear-gradient(90deg,#00ffc8,#006bff);
+  color:#021;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.45), 0 0 12px rgba(0,255,190,0.06);
+  border:none;
 }
 
-.upload-btn:hover {
-    background: var(--cosmic-blue);
-    box-shadow: 0 0 18px var(--cosmic-blue);
+.upload-zone {
+  border: 1px dashed rgba(0,255,190,0.12);
+  padding:16px;
+  border-radius:12px;
+  background: rgba(255,255,255,0.01);
+  text-align:center;
+  transition: background 0.18s, border-color 0.18s;
+}
+
+.upload-zone.dragover {
+  background: rgba(0,255,190,0.03);
+  border-color: rgba(0,255,190,0.24);
+  box-shadow: 0 0 18px rgba(0,255,190,0.06);
+}
+.upload-zone p {
+  color: #a0e8d8;
+  font-size: 0.95rem;
 }
