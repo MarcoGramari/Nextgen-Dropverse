@@ -1,36 +1,66 @@
-// src/pages/DashboardPage.jsx
-import React from "react";
+import React, { useState, useEffect } from "react";
+import api from "../api/api";
 import "../styles/Dashboard.css";
 
-export default function DashboardPage() {
+export default function Dashboard() {
+  const [analytics, setAnalytics] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.get("/admin/analytics")
+      .then(res => {
+        setAnalytics(res.data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Erro ao buscar analytics:", err);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div className="dashboard-container">Carregando Painel do Vendedor...</div>;
+  }
+
+  if (!analytics) {
+    return <div className="dashboard-container">Erro ao carregar dados de análise.</div>;
+  }
+
   return (
-    <section className="page-dashboard">
-      <h1>Dashboard</h1>
+    <div className="dashboard-container">
+      <h2>Painel do Vendedor</h2>
 
-      <div className="cards-grid">
-        <div className="stat-card">
-          <h3>Visitas</h3>
-          <p className="stat-value">1.248</p>
+      <div className="cards">
+        <div className="card">
+          <h3>Vendas Totais</h3>
+          <p>{analytics.total_vendas}</p>
         </div>
 
-        <div className="stat-card">
-          <h3>Uploads</h3>
-          <p className="stat-value">32</p>
+        <div className="card">
+          <h3>Produtos Cadastrados</h3>
+          <p>{analytics.total_produtos}</p>
         </div>
 
-        <div className="stat-card">
-          <h3>Usuários ativos</h3>
-          <p className="stat-value">87</p>
-        </div>
-      </div>
-
-      <div className="panel">
-        <h2>Atividades recentes</h2>
-        <div className="feed">
-          <div className="post">Usuário @x fez upload de "Arte #12".</div>
-          <div className="post">Nova assinatura aprovada.</div>
+        <div className="card">
+          <h3>Curtidas na Semana</h3>
+          <p>{analytics.curtidas_semana}</p>
         </div>
       </div>
-    </section>
+
+      <div className="top-products">
+        <h3>Top 3 Produtos Mais Vistos</h3>
+        {analytics.produtos_mais_vistos.length > 0 ? (
+          <ul>
+            {analytics.produtos_mais_vistos.map((p, index) => (
+              <li key={p.id}>
+                {index + 1}. {p.titulo} (Downloads: {p.downloads || 0})
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Nenhum produto cadastrado ainda.</p>
+        )}
+      </div>
+    </div>
   );
 }

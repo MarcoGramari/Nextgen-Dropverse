@@ -15,7 +15,7 @@ export default function ProductDetails() {
       <h1>{p.titulo}</h1>
       <p>{p.descricao}</p>
       <div>Preço: R$ {p.preco?.toFixed(2)}</div>
-      <a className="btn" href={`${import.meta.env.VITE_API_BASE || "http://127.0.0.1:5000/api"}/produtos/download/${p.file_path}`}>Download</a>
+      <a className="btn" href={`${import.meta.env.VITE_API_BASE || "http://127.0.0.1:5001/api"}/produtos/download/${p.file_path}`}>Download</a>
     </div>
   );
 }

@@ -1,26 +1,26 @@
-/* settings.css — painel de configurações */
-.settings-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
-  gap: 12px;
+.settings-container {
+  padding: 20px;
 }
 
-.settings-card {
-  padding:12px;
-  border-radius:10px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent);
-  border:1px solid rgba(255,255,255,0.02);
+.setting-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
-.field-row { display:flex; gap:8px; align-items:center; }
-.save-actions { display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
-.save-actions button {
-  padding:8px 14px;
-  border:none;
-  border-radius:6px;
-  background: var(--accent-green, #2aff9c);
-  color:#000;
-  font-weight:600;
-  cursor:pointer;
-  transition: background 0.2s;
+.setting-box select {
+  background: #111;
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #222;
+}
+
+.save-btn {
+  padding: 12px 20px;
+  background: #00aaff;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
 }

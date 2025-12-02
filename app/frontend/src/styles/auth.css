@@ -1,0 +1,125 @@
+/* Auth pages - Login & Register */
+
+.auth-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(180deg, #07070a 0%, #0f0f14 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 2.2rem;
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(2,6,23,0.6);
+}
+
+.auth-card h2 {
+  font-size: 1.6rem;
+  color: #f8e6a0;
+  margin-bottom: 0.25rem;
+}
+
+.auth-card .muted {
+  color: #9aa4b2;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-card input {
+  padding: 0.9rem 1rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  color: #e6eef6;
+  outline: none;
+  transition: box-shadow 0.14s, border-color 0.14s;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.auth-card input::placeholder {
+  color: #94a3b8;
+}
+
+.auth-card input:focus {
+  border-color: rgba(102, 252, 241, 0.8);
+  box-shadow: 0 4px 18px rgba(102,252,241,0.06);
+}
+
+.auth-card .btn {
+  padding: 0.9rem 1rem;
+  background: linear-gradient(90deg, #7c5cff, #66fcf1);
+  color: #071018;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  font-size: 1rem;
+}
+
+.auth-card .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-card .btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(124,92,255,0.12);
+}
+
+.auth-card .error {
+  background: rgba(255, 80, 80, 0.08);
+  color: #ff8a8a;
+  border: 1px solid rgba(255,80,80,0.14);
+  padding: 0.6rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #9aa4b2;
+  font-size: 0.95rem;
+}
+
+.auth-links a {
+  color: #66fcf1;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    width: 100%;
+    padding: 1.4rem;
+  }
+
+  .auth-card input {
+    padding: 0.8rem;
+  }
+
+  .auth-card h2 {
+    font-size: 1.4rem;
+  }
+}

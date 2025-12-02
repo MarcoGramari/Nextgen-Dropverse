@@ -1,6 +1,38 @@
-/* Profile.css tweaks */
-.page-profile { display:flex; flex-direction:column; gap:12px; }
-.profile-header { display:flex; gap:14px; align-items:center; }
-.profile-avatar { width:96px; height:96px; border-radius:16px; background: linear-gradient(135deg,#003b41,#002b26); border:1px solid rgba(0,255,200,0.06); box-shadow: 0 10px 30px rgba(0,0,0,0.45); }
-.profile-info h2 { margin:0; color:#bfffe8; }
-.profile-section { margin-top:12px; }
+.profile-container {
+  padding: 20px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar-upload img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #00aaff;
+}
+
+.avatar-upload input {
+  display: none;
+}
+
+.profile-info h2 {
+  margin: 0;
+}
+
+.posts-grid {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.post-mini {
+  background: #111;
+  height: 120px;
+  border-radius: 10px;
+}

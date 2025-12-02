@@ -2,8 +2,10 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
+import "./styles/index.css";
+import "./styles/auth.css";
 import "./styles/Layout.css";
-import "./styles/form.css";
+import "./styles/LoginRegister.css";
 import "./styles/debug-overrides.css";
 import { AuthProvider } from "./context/AuthContext";
 

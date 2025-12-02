@@ -1,70 +1,40 @@
 # models.py
-# Dropverse Nextgen – Modelos reformulados com relacionamentos consistentes,
-# chaves estrangeiras padronizadas e estrutura escalável.
+# Modelos principais para o Dropverse Nextgen.
+# Comentários explicam campos e relacionamentos.
 
 from datetime import datetime
 from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
-# ============================================================
-# TABELA DE ASSOCIAÇÃO: Usuários ↔ Badges (N:N)
-# ============================================================
-
+# Associação entre usuários e badges
 user_badges = db.Table(
-    "user_badges",
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True),
-    db.Column("badge_id", db.Integer, db.ForeignKey("badges.id", ondelete="CASCADE"), primary_key=True)
+    'user_badges',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('badge_id', db.Integer, db.ForeignKey('badges.id'), primary_key=True)
 )
-
-
-# ============================================================
-# USER
-# ============================================================
 
 class User(db.Model):
     __tablename__ = "users"
-
     id = db.Column(db.Integer, primary_key=True)
-    
     nome = db.Column(db.String(120), nullable=False)
-    username = db.Column(db.String(80), unique=True, nullable=False, index=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(150), unique=True, nullable=False)
-
     senha_hash = db.Column(db.String(256), nullable=False)
-
-    bio = db.Column(db.String(250))
-    avatar = db.Column(db.String(250))
-
-    parental_email = db.Column(db.String(150))
+    bio = db.Column(db.String(250), nullable=True)
+    avatar = db.Column(db.String(250), nullable=True)
+    parental_email = db.Column(db.String(150), nullable=True)
     is_verified = db.Column(db.Boolean, default=False)
-
-    points = db.Column(db.Integer, default=0)
-
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    # RELACIONAMENTOS
-    produtos = db.relationship("Produto", backref="autor", lazy=True, cascade="all, delete")
-    posts = db.relationship("Post", backref="autor", lazy=True, cascade="all, delete")
-    purchases = db.relationship("Purchase", backref="comprador", lazy=True, cascade="all, delete-orphan")
+    # gamificação
+    points = db.Column(db.Integer, default=0)
 
-    # chats onde o usuário é participante A
-    chats_a = db.relationship("Chat",
-                              foreign_keys="Chat.participant_a",
-                              backref="user_a",
-                              lazy=True,
-                              cascade="all, delete")
+    # relacionamentos
+    produtos = db.relationship('Produto', backref='autor', lazy=True)
+    posts = db.relationship('Post', backref='autor', lazy=True)
+    purchases = db.relationship('Purchase', backref='comprador', lazy=True)
+    badges = db.relationship('Badge', secondary=user_badges, backref='users')
 
-    # chats onde o usuário é participante B
-    chats_b = db.relationship("Chat",
-                              foreign_keys="Chat.participant_b",
-                              backref="user_b",
-                              lazy=True,
-                              cascade="all, delete")
-
-    badges = db.relationship("Badge", secondary=user_badges, backref="users", lazy="dynamic")
-
-    # PASSWORD
     def set_password(self, senha):
         self.senha_hash = generate_password_hash(senha)
 
@@ -80,34 +50,23 @@ class User(db.Model):
             "bio": self.bio,
             "avatar": self.avatar,
             "points": self.points,
-            "is_verified": self.is_verified,
+            "is_verified": self.is_verified
         }
 
 
-# ============================================================
-# PRODUTO DIGITAL
-# ============================================================
-
 class Produto(db.Model):
     __tablename__ = "produtos"
-
     id = db.Column(db.Integer, primary_key=True)
-
     titulo = db.Column(db.String(200), nullable=False)
-    descricao = db.Column(db.Text)
+    descricao = db.Column(db.Text, nullable=True)
     preco = db.Column(db.Float, nullable=False, default=0.0)
-
     file_path = db.Column(db.String(300), nullable=False)
-    file_mime = db.Column(db.String(80))
-
-    downloads = db.Column(db.Integer, default=0)
-
-    autor_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-
+    file_mime = db.Column(db.String(80), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    # RELAÇÃO: purchases → produto
-    purchases = db.relationship("Purchase", backref="produto", lazy=True, cascade="all, delete-orphan")
+    autor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    downloads = db.Column(db.Integer, default=0)
+    tags = db.Column(db.String(250), nullable=True)
+    categoria = db.Column(db.String(80), nullable=True)
 
     def to_dict(self):
         return {
@@ -118,26 +77,23 @@ class Produto(db.Model):
             "file_path": self.file_path,
             "autor_id": self.autor_id,
             "created_at": self.created_at.isoformat(),
+            "tags": self.tags,
+            "categoria": self.categoria
         }
 
 
-# ============================================================
-# POST (conteúdo social ou divulgação de produto)
-# ============================================================
-
 class Post(db.Model):
     __tablename__ = "posts"
-
     id = db.Column(db.Integer, primary_key=True)
-
     tipo = db.Column(db.String(30), default="social")  # social | product
-    conteudo = db.Column(db.Text)
-    imagem = db.Column(db.String(250))
-
-    autor_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-
+    conteudo = db.Column(db.Text, nullable=True)
+    imagem = db.Column(db.String(250), nullable=True)
+    autor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     likes = db.Column(db.Integer, default=0)
+    
+    comments = db.relationship('Comment', backref='post', lazy=True, cascade="all, delete-orphan")
+    likes_rel = db.relationship('Like', backref='post', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -146,56 +102,37 @@ class Post(db.Model):
             "conteudo": self.conteudo,
             "imagem": self.imagem,
             "autor_id": self.autor_id,
-            "likes": self.likes,
+            "likes": len(self.likes_rel),
+            "comments_count": len(self.comments)
         }
 
 
-# ============================================================
-# CHAT
-# ============================================================
-
 class Chat(db.Model):
     __tablename__ = "chats"
-
     id = db.Column(db.Integer, primary_key=True)
-
     is_temp = db.Column(db.Boolean, default=False)
-
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_activity = db.Column(db.DateTime, default=datetime.utcnow)
-
-    participant_a = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-    participant_b = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-
-    # mensagens
-    messages = db.relationship("Message", backref="chat", lazy=True, cascade="all, delete-orphan")
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    participant_a = db.Column(db.Integer, db.ForeignKey('users.id'))
+    participant_b = db.Column(db.Integer, db.ForeignKey('users.id'))
+    messages = db.relationship('Message', backref='chat', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
             "id": self.id,
             "is_temp": self.is_temp,
-            "last_activity": self.last_activity.isoformat(),
+            "last_activity": self.last_activity.isoformat()
         }
 
 
-# ============================================================
-# MESSAGE
-# ============================================================
-
 class Message(db.Model):
     __tablename__ = "messages"
-
     id = db.Column(db.Integer, primary_key=True)
-
-    chat_id = db.Column(db.Integer, db.ForeignKey("chats.id", ondelete="CASCADE"), nullable=False)
-    remetente_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-
-    conteudo = db.Column(db.Text)
-    imagem = db.Column(db.String(250))
-
+    chat_id = db.Column(db.Integer, db.ForeignKey('chats.id'), nullable=False)
+    remetente_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    conteudo = db.Column(db.Text, nullable=True)
+    imagem = db.Column(db.String(250), nullable=True)
     data_envio = db.Column(db.DateTime, default=datetime.utcnow)
-
-    remetente = db.relationship("User", backref="mensagens_enviadas")
 
     def to_dict(self):
         return {
@@ -203,35 +140,74 @@ class Message(db.Model):
             "chat_id": self.chat_id,
             "remetente_id": self.remetente_id,
             "conteudo": self.conteudo,
-            "data_envio": self.data_envio.isoformat(),
+            "data_envio": self.data_envio.isoformat()
         }
 
 
-# ============================================================
-# PURCHASE
-# ============================================================
-
 class Purchase(db.Model):
     __tablename__ = "purchases"
-
     id = db.Column(db.Integer, primary_key=True)
-
-    comprador_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-    produto_id = db.Column(db.Integer, db.ForeignKey("produtos.id", ondelete="CASCADE"), nullable=False)
-
+    comprador_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    produto_id = db.Column(db.Integer, db.ForeignKey('produtos.id'), nullable=False)
     price_paid = db.Column(db.Float, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 
-# ============================================================
-# BADGE (conquistas)
-# ============================================================
+class Like(db.Model):
+    __tablename__ = "likes"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    __table_args__ = (db.UniqueConstraint('user_id', 'post_id', name='_user_post_uc'),)
+
+
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
+    conteudo = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    user = db.relationship('User', backref='comments', lazy=True)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "post_id": self.post_id,
+            "conteudo": self.conteudo,
+            "created_at": self.created_at.isoformat(),
+            "username": self.user.username
+        }
+
+class Dispute(db.Model):
+    __tablename__ = "disputes"
+    id = db.Column(db.Integer, primary_key=True)
+    purchase_id = db.Column(db.Integer, db.ForeignKey('purchases.id'), nullable=False)
+    comprador_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    motivo = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(50), default="Pendente") # Pendente, Em Revisao, Resolvida
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+class Report(db.Model):
+    __tablename__ = "reports"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=True)
+    comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=True)
+    motivo = db.Column(db.Text, nullable=False)
+    status = db.Column(db.String(50), default="Pendente") # Pendente, Em Revisao, Resolvida
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Badge(db.Model):
     __tablename__ = "badges"
-
     id = db.Column(db.Integer, primary_key=True)
-
     nome = db.Column(db.String(80), nullable=False)
-    descricao = db.Column(db.String(200))
-    icon = db.Column(db.String(200))
+    descricao = db.Column(db.String(200), nullable=True)
+    icon = db.Column(db.String(200), nullable=True)
+
+

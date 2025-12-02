@@ -1,35 +1,53 @@
-import React from "react";
-import Sidebar from "./Sidebar";
+import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import {
+  FaHome,
+  FaUser,
+  FaCog,
+  FaChartBar,
+  FaSignOutAlt,
+} from "react-icons/fa";
 import "../styles/Layout.css";
 
-/*
-  Layout usado nas rotas privadas.
-  Conteúdo das páginas será renderizado dentro de <main>.
-*/
+export default function Layout() {
+  const { logout } = useAuth();
 
-export default function Layout({ children }) {
   return (
-    <div className="app-shell">
-      <Sidebar />
-      <div className="main-area">
-        <header className="topbar">
-          <div className="topbar-left">
-            {/* opcional: breadcrumbs / page title */}
-          </div>
-          <div className="topbar-right">
-            {/* avatar / notificações */}
-            <div className="avatar">👨‍🚀</div>
-          </div>
-        </header>
+    <div className="layout-container">
+      <aside className="sidebar">
 
-        <main className="content-area">
-          {children}
-        </main>
+        <h1 className="sidebar-title">DROPVERSE</h1>
 
-        <footer className="site-footer">
-          Desenvolvido por Gramari — Dropverse © {new Date().getFullYear()}
+        <nav className="sidebar-nav">
+          <Link to="/home" className="sidebar-btn">
+            <FaHome /> Início
+          </Link>
+
+          <Link to="/dashboard" className="sidebar-btn">
+            <FaChartBar /> Dashboard
+          </Link>
+
+          <Link to="/profile" className="sidebar-btn">
+            <FaUser /> Perfil
+          </Link>
+
+          <Link to="/settings" className="sidebar-btn">
+            <FaCog /> Configurações
+          </Link>
+        </nav>
+
+        <button className="logout-btn" onClick={logout}>
+          <FaSignOutAlt /> Sair
+        </button>
+
+        <footer className="sidebar-footer">
+          © 2025 <span>Dropverse</span> — Desenvolvido por Gramari
         </footer>
-      </div>
+      </aside>
+
+      <main className="main-content">
+        <Outlet />
+      </main>
     </div>
   );
 }

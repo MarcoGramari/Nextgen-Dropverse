@@ -5,7 +5,7 @@ export default function Feed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/posts")
+    fetch("http://localhost:5001/api/posts")
       .then(res => res.json())
       .then(data => setPosts(data));
   }, []);
@@ -32,7 +32,7 @@ export default function Feed() {
 
           <div className="post-actions">
             <button>👍 {post.likes}</button>
-            <button>💬 {post.comments.length}</button>
+            <button>💬 Comentar</button>
           </div>
         </div>
       ))}

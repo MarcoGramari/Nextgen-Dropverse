@@ -2,7 +2,7 @@
 # Rode este arquivo ao entrar na pasta backend/api e executar: flask run --debug
 from flask import Flask, jsonify
 from flask_cors import CORS
-from extensions import db
+from extensions import db, socketio
 from config import Config
 import os
 
@@ -12,8 +12,10 @@ def create_app():
     app.config.from_object(Config)
     CORS(app)
 
-    # inicializa db
+    # inicializa db e socketio
     db.init_app(app)
+    if socketio:
+        socketio.init_app(app, cors_allowed_origins="*", message_queue=None) # message_queue=None para ambiente de desenvolvimento simples
 
     # cria uploads folder se não existir
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
@@ -51,5 +53,31 @@ def create_app():
 
     return app
 
+
+# Adicionar eventos de SocketIO (exemplo) - only if socketio is available
+if socketio:
+    @socketio.on("connect")
+    def handle_connect():
+        print("Cliente conectado")
+
+    @socketio.on("disconnect")
+    def handle_disconnect():
+        print("Cliente desconectado")
+
+    @socketio.on("send_message")
+    def handle_send_message(data):
+        # Lógica para processar a mensagem e emitir para o destinatário
+        print("Mensagem recebida:", data)
+        socketio.emit("new_message", data, room=data.get("room")) # Exemplo de emissão para uma sala
+
 # entrypoint para flask run
 app = create_app()
+
+# Para rodar com SocketIO: socketio.run(app, port=5001)
+# O comando "flask run" não funcionará mais diretamente com SocketIO.
+# Vamos modificar o entrypoint para usar o comando "python app.py"
+if __name__ == "__main__":
+    if socketio:
+        socketio.run(app, port=5000)
+    else:
+        app.run(port=5000, debug=True)

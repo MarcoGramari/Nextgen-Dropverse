@@ -1,56 +1,28 @@
-// src/components/ui/Sidebar.jsx
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import "../styles/Sidebar.css";
+import { NavLink } from "react-router-dom";
+import { FaHome, FaChartBar, FaUser, FaUpload, FaCog } from "react-icons/fa";
 
-/*
-  Sidebar simples, fixa, acessível.
-  Use NavLink para aplicar classe active automaticamente.
-*/
+/* Sidebar lateral com ícones - substitui topbar */
 export default function Sidebar() {
-  const { logout } = useAuth();
-  const nav = useNavigate();
-
-  const handleLogout = () => {
-    logout();
-    nav("/");
-  };
-
-  const links = [
-    { to: "/", label: "Início", icon: "🏠" },
-    { to: "/dashboard", label: "Dashboard", icon: "📊" },
-    { to: "/profile", label: "Perfil", icon: "👤" },
-    { to: "/settings", label: "Configurações", icon: "⚙️" },
+  const items = [
+    { to: "/home", label: "Home", icon: <FaHome /> },
+    { to: "/dashboard", label: "Dashboard", icon: <FaChartBar /> },
+    { to: "/profile", label: "Perfil", icon: <FaUser /> },
+    { to: "/upload", label: "Upload", icon: <FaUpload /> },
+    { to: "/settings", label: "Configurações", icon: <FaCog /> }
   ];
 
   return (
     <aside className="sidebar">
-      <div className="sidebar-top">
-        <div className="brand">
-          <div className="logo">D</div>
-          <div className="brand-text">
-            <strong>Dropverse</strong>
-            <small>Agora — missão</small>
-          </div>
-        </div>
-      </div>
-
+      <div className="sidebar-brand">Dropverse</div>
       <nav className="sidebar-nav">
-        {links.map((l) => (
-          <NavLink key={l.to} to={l.to} className="sidebar-link">
-            <span className="icon" aria-hidden>{l.icon}</span>
-            <span className="label">{l.label}</span>
+        {items.map(i => (
+          <NavLink key={i.to} to={i.to} className="sidebar-link">
+            <span className="icon">{i.icon}</span>
+            <span className="label">{i.label}</span>
           </NavLink>
         ))}
       </nav>
-
-      <div className="sidebar-bottom">
-        <button className="btn signout" onClick={handleLogout}>
-          ⎋ Sair
-        </button>
-        <div className="copy">© {new Date().getFullYear()} Dropverse</div>
-      </div>
     </aside>
   );
 }

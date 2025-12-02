@@ -10,25 +10,43 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/ConfigPage";
 import { useAuth } from "./context/AuthContext";
 
+/*
+  App.jsx controla rotas públicas/protegidas.
+  As rotas protegidas são filhas do Layout (Outlet).
+*/
 export default function App() {
-  const { user } = useAuth();
-  const isLogged = !!user;
+  try {
+    const { user, loading } = useAuth();
+    const isLogged = !!user;
 
-  return (
-    <>
+    console.log("App rendering - user:", user, "loading:", loading);
+
+    // Show loading state while restoring from localStorage
+    if (loading) {
+      return <div style={{ height: "100vh", background: "#0b0c10", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: "24px" }}>Loading...</div>;
+    }
+
+    if (!isLogged) {
+      return <LoginRegister />;
+    }
+
+    return (
       <Routes>
-        <Route path="/" element={isLogged ? <Navigate to="/home" /> : <LoginRegister />} />
-
-        <Route element={isLogged ? <Layout /> : <Navigate to="/" />}>
+        {/* Protected area with Layout */}
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
           <Route path="home" element={<Home />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="product/:id" element={<ProductDetails />} />
-          <Route path="profile/:username?" element={<Profile />} /> 
+          <Route path="profile/:username?" element={<Profile />} />
           <Route path="settings" element={<Settings />} />
         </Route>
 
-        <Route path="*" element={<Navigate to={isLogged ? "/home" : "/"} />} />
+        <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
-    </>
-  );
+    );
+  } catch (err) {
+    console.error("App error:", err);
+    return <div style={{ color: "red", padding: "20px", background: "#0b0c10", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>Error: {err.message}</div>;
+  }
 }

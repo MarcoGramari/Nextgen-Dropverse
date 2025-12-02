@@ -1,20 +1,23 @@
-/* Dashboard.css specific tweaks */
+.dashboard-container {
+  padding: 20px;
+}
 
-.page-dashboard h1 { font-family: 'Orbitron', sans-serif; color:#9fffe5; margin-bottom:12px; }
-.cards-grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
-  gap: 16px;
-  margin-bottom:18px;
+.cards {
+  display: flex;
+  gap: 20px;
 }
-.stat-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:12px; padding:16px;
-  border: 1px solid rgba(0,255,200,0.04);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+
+.card {
+  background: #111;
+  padding: 20px;
+  border-radius: 14px;
+  width: 200px;
+  text-align: center;
+  border: 1px solid #1f1f1f;
 }
-.stat-card h3 { margin:0; color:#cfeee4; font-size:0.95rem; }
-.stat-value { font-size:1.6rem; font-weight:800; color:#00ffd0; margin-top:6px; }
-.stat-change {
-  margin-top:8px; font-size:0.9rem; display:flex; align-items:center; gap:6px;
+
+.card p {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #00aaff;
 }

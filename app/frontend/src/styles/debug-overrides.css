@@ -1,14 +1,28 @@
-/* debug-overrides.css — regras leves para dev (não use em prod) */
-/* Apenas helpers não-invasivos para debugging visual */
-
-.dbg-outline * {
-  outline: 1px dashed rgba(255,255,255,0.03);
+/* debug-overrides.css — DISABLED FOR NOW */
+/* 
+.layout-container, .main-content, #outlet-wrapper {
+  min-height: 200px !important;
+  outline: none !important;
 }
 
-.hide-on-debug {
-  display: none !important;
+* {
+  transition: none !important;
 }
 
-/* utilities para alinhar durante o debug */
-.center-xy { display:flex; justify-content:center; align-items:center; }
-.flex-col { display:flex; flex-direction:column; }
+*[style*="display:none"], .hidden, .d-none {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.main-content {
+  z-index: 2 !important;
+  position: relative !important;
+  background-clip: padding-box;
+}
+
+#outlet-wrapper {
+  border: 2px dashed rgba(0,255,255,0.12) !important;
+  padding: 12px !important;
+}
+*/

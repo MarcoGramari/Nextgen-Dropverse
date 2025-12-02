@@ -1,32 +1,48 @@
-/* Home.css — landing / painel inicial */
-.home-hero {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 1.2rem;
-  margin-bottom: 1.2rem;
+.home-container {
+  padding: 20px;
 }
 
-.home-hero .intro {
-  max-width: 640px;
+.post-box {
+  background: #141414;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
 }
 
-.home-hero h1 {
-  font-family: 'Orbitron', sans-serif;
-  color: #bfffe8;
-  font-size: 2.2rem;
-  margin: 0 0 12px;
-  text-shadow: 0 0 18px rgba(0,255,200,0.12);
+.post-box textarea {
+  width: 100%;
+  height: 70px;
+  background: #0c0c0c;
+  border: none;
+  outline: none;
+  padding: 10px;
+  color: white;
+  border-radius: 8px;
+  resize: none;
 }
 
-.home-hero p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  line-height: 1.6;
+.post-box button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #00aaff;
+  border: none;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
-.grid-cards {
-  display:grid;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-  gap: 1rem;
+.feed .post {
+  background: #111;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
+
+.feed .post strong {
+  font-size: 15px;
+}
+
+.feed .post span {
+  color: #777;
+  font-size: 12px;
 }

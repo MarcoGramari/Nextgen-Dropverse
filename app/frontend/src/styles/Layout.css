@@ -1,53 +1,132 @@
-/* GLOBAL BASE — Spaceship theme */
+/* ===========================
+   LAYOUT DROPVERSE NEXTGEN
+   =========================== */
 
-:root {
-  --bg-0: #030416;
-  --bg-1: #0b0f25;
-  --panel-dark: #0f1325;
-  --panel-light: #14172c;
-  --accent-cyan: #00ffee;
-  --accent-purple: #7b4bff;
-  --text-primary: #e6f9ff;
-  --text-muted: #98b9c3;
-}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body,#root{height:100%;width:100%}
-body{
-  font-family:'Inter','Segoe UI','Roboto',Arial,sans-serif;
-  background:radial-gradient(1000px 400px at 20% 10%,rgba(123,75,255,0.06),transparent),radial-gradient(700px 300px at 90% 85%,rgba(0,238,238,0.03),transparent),linear-gradient(180deg,var(--bg-1),var(--bg-0));
-  color:var(--text-primary);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-
-.app-shell {
+.layout-container {
   display: flex;
-  min-height: 100vh;
-  background: transparent;
+  height: 100vh;
+  width: 100vw;
+  background: #0b0c10;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
 }
 
-/* main area (right of sidebar) */
-.main-area {
-  flex: 1;
+/* ------- SIDEBAR ------- */
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background: linear-gradient(180deg, #0f0f15, #0a0a0d);
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  padding: 25px 20px;
+  border-right: 1px solid #1d1d23;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  z-index: 20;
 }
 
-/* header */
-.topbar {
-  height: 60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 0 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+.sidebar-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: #7f5af0;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  text-shadow: 0 0 8px rgba(127, 90, 240, 0.4);
 }
 
-/* content area */
-.content-area {
+/* ------- NAV BUTTONS ------- */
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: #1b1c22;
+  padding: 14px 15px;
+  color: #e8e8e8;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+
+  border: 1px solid #24252d;
+  transition: 0.25s ease;
+}
+
+.sidebar-btn i,
+.sidebar-btn svg {
+  font-size: 18px;
+  color: #7f5af0;
+  transition: 0.25s ease;
+}
+
+.sidebar-btn:hover {
+  background: #23242b;
+  border-color: #7f5af0;
+  transform: translateX(4px);
+}
+
+.sidebar-btn:hover svg {
+  color: #00d4ff;
+}
+
+/* ------- LOGOUT BUTTON ------- */
+
+.logout-btn {
+  margin-top: 30px;
+  background: #1c1818;
+  border: 1px solid #e63946;
+  color: #e63946;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: #e63946;
+  color: white;
+}
+
+/* ------- FOOTER ------- */
+
+.sidebar-footer {
+  font-size: 12px;
+  opacity: 0.6;
+  color: #aaa;
+  margin-top: auto;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+.sidebar-footer span {
+  color: #7f5af0;
+  font-weight: bold;
+}
+
+/* ------- MAIN CONTENT ------- */
+
+.main-content {
   flex: 1;
-  padding: 28px;
+  padding: 40px;
   overflow-y: auto;
+  background: #0b0c10;
+
+  background-image: radial-gradient(
+    circle at top left,
+    rgba(127, 90, 240, 0.06),
+    transparent 40%
+  );
+  position: relative;
+  z-index: 1;
 }
