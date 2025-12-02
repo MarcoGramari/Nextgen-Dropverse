@@ -1,6 +1,7 @@
 // src/components/ui/Sidebar.jsx
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import "../styles/Sidebar.css";
 
 /*
@@ -8,6 +9,14 @@ import "../styles/Sidebar.css";
   Use NavLink para aplicar classe active automaticamente.
 */
 export default function Sidebar() {
+  const { logout } = useAuth();
+  const nav = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    nav("/");
+  };
+
   const links = [
     { to: "/", label: "Início", icon: "🏠" },
     { to: "/dashboard", label: "Dashboard", icon: "📊" },
@@ -37,7 +46,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-bottom">
-        <button className="btn signout" onClick={() => { /* assume useAuth em Layout */ }}>
+        <button className="btn signout" onClick={handleLogout}>
           ⎋ Sair
         </button>
         <div className="copy">© {new Date().getFullYear()} Dropverse</div>

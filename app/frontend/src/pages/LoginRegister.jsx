@@ -71,19 +71,22 @@ export default function LoginRegister() {
       const res = await register(reg);
 
       if (res && res.ok) {
-        // mostrar sucesso dentro do card
-        setSuccess("Registro completo! Bem-vindo ao Dropverse.");
-        // fecha o painel de registro visualmente
-        if (containerRef.current) containerRef.current.classList.remove("right-panel-active");
-
+        setSuccess("Registro completo! Entrando...");
+        // Auto-login after registration
         if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
-        successTimeoutRef.current = setTimeout(() => {
-          setSuccess("");
-          // opcional: redirecionar após sucesso; comente se não quiser
-          // nav("/home");
-        }, 3500);
+        successTimeoutRef.current = setTimeout(async () => {
+          // Attempt auto-login with same credentials
+          const loginRes = await login({ email: reg.email, senha: reg.password });
+          if (loginRes && loginRes.ok) {
+            nav("/home");
+          } else {
+            setSuccess("");
+            setErr("Registro bem-sucedido! Por favor, faça login manualmente.");
+            if (containerRef.current) containerRef.current.classList.remove("right-panel-active");
+          }
+        }, 1500);
       } else {
-        setErr(res && res.error ? res.error : "Erro ao registrar.");
+        setErr(res && res.error ? (res.error.error || res.error) : "Erro ao registrar.");
         if (errTimeoutRef.current) clearTimeout(errTimeoutRef.current);
         errTimeoutRef.current = setTimeout(() => setErr(""), 4000);
       }
