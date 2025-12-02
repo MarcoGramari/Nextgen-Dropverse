@@ -3,8 +3,6 @@ import "../styles/Layout.css";
 
 export default function Home() {
   const [posts, setPosts] = useState([
-    { id: 1, user: "Gramari", content: "Primeiro post na Dropverse 🔥", time: "2h" },
-    { id: 2, user: "DevBot", content: "Sistema está rodando suave 😎", time: "3h" }
   ]);
 
   const [input, setInput] = useState("");
