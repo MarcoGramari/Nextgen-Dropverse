@@ -3,7 +3,8 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./styles/Layout.css";
-import"./styles/debug-overrides.css";
+import "./styles/form.css";
+import "./styles/debug-overrides.css";
 import { AuthProvider } from "./context/AuthContext";
 
 createRoot(document.getElementById("root")).render(

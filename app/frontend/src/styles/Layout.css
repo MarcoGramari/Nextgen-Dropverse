@@ -1,16 +1,30 @@
-/* LayoutApp.css — estrutura app-shell, sidebar fixa e content area */
+/* GLOBAL BASE — Spaceship theme */
 
 :root {
-  --bg-0: #060810;
-  --bg-1: #08121a;
-  --panel-border: rgba(0,255,200,0.06);
-  --accent: #00ffbf;
+  --bg-0: #030416;
+  --bg-1: #0b0f25;
+  --panel-dark: #0f1325;
+  --panel-light: #14172c;
+  --accent-cyan: #00ffee;
+  --accent-purple: #7b4bff;
+  --text-primary: #e6f9ff;
+  --text-muted: #98b9c3;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%;width:100%}
+body{
+  font-family:'Inter','Segoe UI','Roboto',Arial,sans-serif;
+  background:radial-gradient(1000px 400px at 20% 10%,rgba(123,75,255,0.06),transparent),radial-gradient(700px 300px at 90% 85%,rgba(0,238,238,0.03),transparent),linear-gradient(180deg,var(--bg-1),var(--bg-0));
+  color:var(--text-primary);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
 .app-shell {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(180deg, var(--bg-1), var(--bg-0));
+  background: transparent;
 }
 
 /* main area (right of sidebar) */
