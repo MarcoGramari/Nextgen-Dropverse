@@ -15,33 +15,32 @@ export default function Layout() {
   return (
     <div className="layout-container">
       <aside className="sidebar">
-
         <h1 className="sidebar-title">DROPVERSE</h1>
 
         <nav className="sidebar-nav">
           <Link to="/home" className="sidebar-btn">
-            <FaHome /> Início
+            <FaHome className="icon" /> <span>Início</span>
           </Link>
 
           <Link to="/dashboard" className="sidebar-btn">
-            <FaChartBar /> Dashboard
+            <FaChartBar className="icon" /> <span>Dashboard</span>
           </Link>
 
           <Link to="/profile" className="sidebar-btn">
-            <FaUser /> Perfil
+            <FaUser className="icon" /> <span>Perfil</span>
           </Link>
 
           <Link to="/settings" className="sidebar-btn">
-            <FaCog /> Configurações
+            <FaCog className="icon" /> <span>Configurações</span>
           </Link>
         </nav>
 
         <button className="logout-btn" onClick={logout}>
-          <FaSignOutAlt /> Sair
+          <FaSignOutAlt className="icon" /> <span>Sair</span>
         </button>
 
         <footer className="sidebar-footer">
-          © 2025 <span>Dropverse</span> — Desenvolvido por Gramari
+          <p>© 2025 Dropverse</p>
         </footer>
       </aside>
 

@@ -50,3 +50,5 @@ export default function App() {
     return <div style={{ color: "red", padding: "20px", background: "#0b0c10", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>Error: {err.message}</div>;
   }
 }
+
+[]
