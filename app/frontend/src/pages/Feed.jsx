@@ -1,14 +1,31 @@
 import { useState, useEffect } from "react";
+import api from "../api/api";
 import "../styles/Feed.css";
 
 export default function Feed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/posts")
-      .then(res => res.json())
-      .then(data => setPosts(data));
+    const fetchPosts = async () => {
+      try {
+        const res = await api.get("/posts");
+        setPosts(res.data);
+      } catch (err) {
+        console.error("Error fetching posts:", err);
+      }
+    };
+    fetchPosts();
   }, []);
+
+  const handleBuy = async (postId) => {
+    try {
+      await api.post(`/produtos/purchase/${postId}`);
+      alert("Compra realizada com sucesso!");
+    } catch (err) {
+      console.error("Error buying product:", err);
+      alert("Erro ao comprar produto.");
+    }
+  };
 
   return (
     <div className="feed-container">

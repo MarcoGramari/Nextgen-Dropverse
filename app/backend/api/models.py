@@ -91,20 +91,37 @@ class Post(db.Model):
     autor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     likes = db.Column(db.Integer, default=0)
-    
+
+    # Product fields
+    titulo = db.Column(db.String(200), nullable=True)
+    descricao = db.Column(db.Text, nullable=True)
+    preco = db.Column(db.Float, nullable=True)
+    categoria = db.Column(db.String(80), nullable=True)
+    file_path = db.Column(db.String(300), nullable=True)
+
     comments = db.relationship('Comment', backref='post', lazy=True, cascade="all, delete-orphan")
     likes_rel = db.relationship('Like', backref='post', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
-        return {
+        base = {
             "id": self.id,
             "tipo": self.tipo,
             "conteudo": self.conteudo,
             "imagem": self.imagem,
             "autor_id": self.autor_id,
             "likes": len(self.likes_rel),
-            "comments_count": len(self.comments)
+            "comments_count": len(self.comments),
+            "created_at": self.created_at.isoformat()
         }
+        if self.tipo == "product":
+            base.update({
+                "titulo": self.titulo,
+                "descricao": self.descricao,
+                "preco": self.preco,
+                "categoria": self.categoria,
+                "file_path": self.file_path
+            })
+        return base
 
 
 class Chat(db.Model):

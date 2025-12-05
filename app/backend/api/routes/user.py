@@ -33,5 +33,6 @@ def update_profile():
     data = request.json or {}
     user.nome = data.get("nome", user.nome)
     user.bio = data.get("bio", user.bio)
+    user.avatar = data.get("avatar", user.avatar)
     db.session.commit()
     return jsonify({"message":"updated","user": user.to_dict()})
