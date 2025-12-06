@@ -1,12 +1,8 @@
 # models.py
-# Modelos principais para o Dropverse Nextgen.
-# Comentários explicam campos e relacionamentos.
-
 from datetime import datetime
 from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Associação entre usuários e badges
 user_badges = db.Table(
     'user_badges',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
@@ -25,11 +21,8 @@ class User(db.Model):
     parental_email = db.Column(db.String(150), nullable=True)
     is_verified = db.Column(db.Boolean, default=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-
-    # gamificação
     points = db.Column(db.Integer, default=0)
 
-    # relacionamentos
     produtos = db.relationship('Produto', backref='autor', lazy=True)
     posts = db.relationship('Post', backref='autor', lazy=True)
     purchases = db.relationship('Purchase', backref='comprador', lazy=True)
@@ -90,7 +83,6 @@ class Post(db.Model):
     imagem = db.Column(db.String(250), nullable=True)
     autor_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    likes = db.Column(db.Integer, default=0)
 
     # Product fields
     titulo = db.Column(db.String(200), nullable=True)
@@ -103,14 +95,15 @@ class Post(db.Model):
     likes_rel = db.relationship('Like', backref='post', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
+        likes_count = len(self.likes_rel) if self.likes_rel is not None else 0
         base = {
             "id": self.id,
             "tipo": self.tipo,
-            "conteudo": self.conteudo,
-            "imagem": self.imagem,
+            "content": self.conteudo,
+            "image": self.imagem,
             "autor_id": self.autor_id,
-            "likes": len(self.likes_rel),
-            "comments_count": len(self.comments),
+            "likes": likes_count,
+            "comments_count": len(self.comments) if self.comments is not None else 0,
             "created_at": self.created_at.isoformat()
         }
         if self.tipo == "product":
@@ -180,7 +173,6 @@ class Like(db.Model):
     __table_args__ = (db.UniqueConstraint('user_id', 'post_id', name='_user_post_uc'),)
 
 
-
 class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
@@ -192,13 +184,14 @@ class Comment(db.Model):
     user = db.relationship('User', backref='comments', lazy=True)
 
     def to_dict(self):
+        username = getattr(self.user, "username", None)
         return {
             "id": self.id,
             "user_id": self.user_id,
             "post_id": self.post_id,
             "conteudo": self.conteudo,
             "created_at": self.created_at.isoformat(),
-            "username": self.user.username
+            "username": username
         }
 
 class Dispute(db.Model):
@@ -207,7 +200,7 @@ class Dispute(db.Model):
     purchase_id = db.Column(db.Integer, db.ForeignKey('purchases.id'), nullable=False)
     comprador_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     motivo = db.Column(db.Text, nullable=False)
-    status = db.Column(db.String(50), default="Pendente") # Pendente, Em Revisao, Resolvida
+    status = db.Column(db.String(50), default="Pendente")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Report(db.Model):
@@ -217,7 +210,7 @@ class Report(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=True)
     comment_id = db.Column(db.Integer, db.ForeignKey('comments.id'), nullable=True)
     motivo = db.Column(db.Text, nullable=False)
-    status = db.Column(db.String(50), default="Pendente") # Pendente, Em Revisao, Resolvida
+    status = db.Column(db.String(50), default="Pendente")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Badge(db.Model):
@@ -226,5 +219,3 @@ class Badge(db.Model):
     nome = db.Column(db.String(80), nullable=False)
     descricao = db.Column(db.String(200), nullable=True)
     icon = db.Column(db.String(200), nullable=True)
-
-

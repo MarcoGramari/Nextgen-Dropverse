@@ -1,19 +1,11 @@
-# TODO: Enhance Button Styles in CSS Files
+# TODO: Fix Profile Picture Display Issue
 
-## Overview
-Enhance button styles across application CSS files (excluding login/register) by:
-- Increasing padding for larger button sizes
-- Adjusting gaps/margins for better spacing
-- Adding smooth transitions and improved hover effects
-- Ensuring consistency across files
+## Completed Tasks
+- [x] Identified the issue: Profile.jsx was using filename directly for avatar src instead of full URL
+- [x] Added getImageUrl function to Profile.jsx to construct full image URLs
+- [x] Updated avatar img src to use getImageUrl(profileData?.avatar)
+- [x] Updated post image src in product posts to use getImageUrl
+- [x] Updated post image src in social posts to use getImageUrl
 
-## Files to Edit
-- [ ] app/frontend/src/styles/index.css - Update .btn and .btn-primary
-- [ ] app/frontend/src/styles/Home.css - Update .filter-btn
-- [ ] app/frontend/src/styles/Feed.css - Update .post-actions button
-- [ ] app/frontend/src/styles/CreatePostPopup.css - Update .popup-actions button and .close-btn
-- [ ] app/frontend/src/styles/Profile.css - Update various buttons (.upload-btn, .profile-info button, .post-item button, .create-post button)
-
-## Followup Steps
-- [ ] Test the application to ensure button enhancements work correctly
-- [ ] Verify responsiveness on different screen sizes
+## Summary
+The profile picture was not showing because the frontend was trying to load the image using just the filename (e.g., "abc123.png") instead of the full URL (e.g., "http://localhost:5000/uploads/abc123.png"). By adding the getImageUrl helper function and using it consistently, the images should now load properly.

@@ -3,35 +3,37 @@
    ============================ */
 
 .feed-container {
-  color: #eee;
+  color: #FFFFFF;
   max-width: 650px;
   margin: 0 auto;
   padding-bottom: 80px;
+  background-color: #000000;
+  font-family: 'Arial', sans-serif;
 }
 
 .feed-container h1 {
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 25px;
-  color: #7f5af0;
-  text-shadow: 0 0 8px rgba(127, 90, 240, 0.3);
+  color: #00FFFF;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 /* ------- POST CARD ------- */
 
 .feed-post {
-  background: #111217;
+  background: #111111;
   padding: 20px;
   border-radius: 14px;
   margin-bottom: 22px;
-  border: 1px solid #1c1d22;
-  box-shadow: 0 0 14px rgba(0, 0, 0, 0.4);
-  transition: 0.25s;
+  border: 2px solid #00FF00;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  transition: 0.25s, box-shadow 0.3s;
 }
 
 .feed-post:hover {
-  border-color: #7f5af0;
-  box-shadow: 0 0 20px rgba(127, 90, 240, 0.25);
+  border-color: #FF00FF;
+  box-shadow: 0 0 25px rgba(255, 0, 255, 0.5);
   transform: translateY(-3px);
 }
 
@@ -49,19 +51,21 @@
   height: 46px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #7f5af0;
-  box-shadow: 0 0 10px rgba(127, 90, 240, 0.3);
+  border: 2px solid #00FFFF;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
 }
 
 .post-header strong {
   font-size: 15px;
-  color: #e8e8e8;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
 .post-header p {
   margin: 0;
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.8;
+  color: #FFFFFF;
 }
 
 /* ------- CONTENT ------- */
@@ -70,7 +74,7 @@
   font-size: 15px;
   line-height: 1.5;
   margin-bottom: 14px;
-  color: #ddd;
+  color: #FFFFFF;
 }
 
 /* ------- IMAGE ------- */
@@ -79,7 +83,8 @@
   width: 100%;
   border-radius: 12px;
   margin: 10px 0;
-  border: 1px solid #24242d;
+  border: 2px solid #00FF00;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
 }
 
 /* ------- ACTIONS ------- */
@@ -91,18 +96,21 @@
 }
 
 .post-actions button {
-  background: #1b1c22;
-  border: 1px solid #24242d;
-  color: #ccc;
+  background: #111111;
+  border: 2px solid #FF00FF;
+  color: #FFFFFF;
   padding: 8px 14px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.25s;
+  transition: 0.25s, box-shadow 0.3s;
   font-size: 14px;
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
 }
 
 .post-actions button:hover {
-  color: #7f5af0;
-  border-color: #7f5af0;
+  color: #000000;
+  background: #FF00FF;
+  border-color: #FF00FF;
   transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
 }

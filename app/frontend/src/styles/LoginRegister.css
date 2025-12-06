@@ -2,14 +2,14 @@
 body {
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle at center, #0a0f18, #04070b 70%);
-  font-family: "Montserrat", sans-serif;
+  background: #000000;
+  font-family: "Arial", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  color: #caffff;
+  color: #FFFFFF;
 }
 
 .auth-wrapper {

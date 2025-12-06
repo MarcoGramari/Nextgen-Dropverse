@@ -9,6 +9,8 @@ export default function Home() {
   const [input, setInput] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState({});
+  const [newComment, setNewComment] = useState({});
 
   useEffect(() => {
     fetchPosts();
@@ -65,6 +67,63 @@ export default function Home() {
     } catch (err) {
       console.error("Error buying product:", err);
       alert("Erro ao comprar produto.");
+    }
+  };
+
+  const handleLike = async (postId) => {
+    try {
+      const res = await api.post(`/posts/${postId}/like`);
+      const newLikes = res.data.likes ?? (posts.find(p => p.id === postId)?.likes + 1);
+      const updatedPosts = posts.map(post => post.id === postId ? { ...post, likes: newLikes } : post);
+      setPosts(updatedPosts);
+      // Re-apply filter to update filteredPosts
+      applyFilter(updatedPosts);
+    } catch (err) {
+      console.error("Error liking post:", err);
+    }
+  };
+
+  const getImageUrl = (filename) => {
+    if (!filename) return null;
+    const base = api.defaults.baseURL ? api.defaults.baseURL.replace(/\/api\/?$/, "") : "";
+    return `${base}/uploads/${filename}`;
+  };
+
+  const toggleComments = async (postId) => {
+    if (comments[postId]) {
+      // Hide comments
+      setComments(prev => ({ ...prev, [postId]: null }));
+    } else {
+      // Fetch comments
+      try {
+        const res = await api.get(`/posts/${postId}/comments`);
+        setComments(prev => ({ ...prev, [postId]: res.data }));
+      } catch (err) {
+        console.error("Error fetching comments:", err);
+      }
+    }
+  };
+
+  const handleComment = async (postId) => {
+    const content = newComment[postId]?.trim();
+    if (!content) return;
+
+    try {
+      const res = await api.post(`/posts/${postId}/comments`, { conteudo: content });
+      const newCommentObj = res.data.comment;
+      setComments(prev => ({
+        ...prev,
+        [postId]: [...(prev[postId] || []), newCommentObj]
+      }));
+      setNewComment(prev => ({ ...prev, [postId]: "" }));
+      // Update comment count in posts
+      const updatedPosts = posts.map(post =>
+        post.id === postId ? { ...post, comments_count: (post.comments_count || 0) + 1 } : post
+      );
+      setPosts(updatedPosts);
+      applyFilter(updatedPosts);
+    } catch (err) {
+      console.error("Error posting comment:", err);
     }
   };
 
@@ -133,20 +192,40 @@ export default function Home() {
           filteredPosts.map((p) => (
             <div key={p.id} className="post">
               <div className="post-header">
-                <img src={p.author.avatar} alt="" className="avatar" />
+                <img src={getImageUrl(p.author?.avatar)} alt="" className="avatar" />
                 <div>
-                  <strong>@{p.author.username}</strong>
-                  <p>{p.author.name}</p>
+                  <strong>@{p.author?.username}</strong>
                 </div>
               </div>
               <p className="post-content">{p.content}</p>
               {p.image && (
-                <img src={p.image} alt="" className="post-image" />
+                <img src={getImageUrl(p.image)} alt="" className="post-image" />
               )}
               <div className="post-actions">
-                <button>👍 {p.likes}</button>
-                <button>💬 Comentar</button>
+                <button onClick={() => handleLike(p.id)}>👍 {p.likes ?? 0}</button>
+                <button onClick={() => toggleComments(p.id)}>💬 Comentar ({p.comments_count ?? 0})</button>
               </div>
+
+              {comments[p.id] && (
+                <div className="comments-section">
+                  {comments[p.id].map(comment => (
+                    <div key={comment.id} className="comment">
+                      <strong>@{comment.username}</strong>: {comment.conteudo}
+                      <small>{new Date(comment.created_at).toLocaleString()}</small>
+                    </div>
+                  ))}
+                  <div className="comment-input">
+                    <input
+                      type="text"
+                      placeholder="Escreva um comentário..."
+                      value={newComment[p.id] || ""}
+                      onChange={(e) => setNewComment(prev => ({ ...prev, [p.id]: e.target.value }))}
+                      onKeyPress={(e) => e.key === 'Enter' && handleComment(p.id)}
+                    />
+                    <button onClick={() => handleComment(p.id)}>Enviar</button>
+                  </div>
+                </div>
+              )}
             </div>
           ))
         )}

@@ -3,30 +3,30 @@
 /* =========================== */
 
 :root {
-    --space-bg-0: #030416;
-    --space-bg-1: #0b0f25;
+    --space-bg-0: #000000;
+    --space-bg-1: #000000;
 
-    --panel-dark: #0f1325;
-    --panel-light: #14172c;
+    --panel-dark: #111111;
+    --panel-light: #111111;
 
-    --accent-cyan: #00ffee;
-    --accent-purple: #7b4bff;
-    --accent-pink: #ff69b4;
-    --accent-green: #2aff9c;
+    --accent-cyan: #00FFFF;
+    --accent-purple: #FF00FF;
+    --accent-pink: #FF00FF;
+    --accent-green: #00FF00;
 
-    --text-primary: #e6f9ff;
-    --text-muted: #96a8bf;
+    --text-primary: #FFFFFF;
+    --text-muted: #FFFFFF;
 
-    --glass: rgba(255,255,255,0.04);
-    --glass-strong: rgba(255,255,255,0.08);
+    --glass: rgba(0,255,0,0.1);
+    --glass-strong: rgba(0,255,0,0.2);
 
     --radius-lg: 16px;
     --radius-md: 12px;
 
     --shadow-neon:
-        0 0 14px rgba(0,255,238,0.09),
-        0 0 26px rgba(123,75,255,0.14),
-        0 0 4px rgba(255,255,255,0.05);
+        0 0 20px rgba(0,255,0,0.3),
+        0 0 30px rgba(255,0,255,0.3),
+        0 0 10px rgba(0,255,255,0.3);
 }
 
 /* BASE */

@@ -3,6 +3,12 @@ import { useAuth } from "../context/AuthContext";
 import api from "../api/api";
 import "../styles/Profile.css";
 
+const getImageUrl = (filename) => {
+  if (!filename) return null;
+  const base = api.defaults.baseURL ? api.defaults.baseURL.replace(/\/api\/?$/, "") : "";
+  return `${base}/uploads/${filename}`;
+};
+
 export default function Profile() {
   const { user } = useAuth();
   const [profileData, setProfileData] = useState(null);
@@ -91,6 +97,16 @@ export default function Profile() {
     }
   };
 
+  const handleBuy = async (postId) => {
+    try {
+      await api.post(`/produtos/purchase/${postId}`);
+      alert("Compra realizada com sucesso!");
+    } catch (err) {
+      console.error("Error buying product:", err);
+      alert("Erro ao comprar produto.");
+    }
+  };
+
 
 
   const uploadAvatar = async () => {
@@ -122,7 +138,7 @@ export default function Profile() {
           <label className="avatar-upload">
             <input type="file" onChange={handleAvatarChange} />
             <img
-              src={profileData?.avatar || "https://via.placeholder.com/150"}
+              src={getImageUrl(profileData?.avatar) || "https://via.placeholder.com/150"}
               alt="avatar"
             />
             {avatarFile && (
@@ -160,20 +176,21 @@ export default function Profile() {
       <div className="posts-grid">
         {posts.map((post) => (
           <div key={post.id} className="post-item">
+            <p className="post-date">{new Date(post.created_at).toLocaleString()}</p>
             {post.tipo === "product" ? (
               <div className="product-post">
                 <h3>{post.titulo}</h3>
                 <p>{post.descricao}</p>
                 <p><strong>R$ {post.preco?.toFixed(2)}</strong></p>
                 <p>Categoria: {post.categoria}</p>
-                {post.image && <img src={post.image} alt="post" />}
+                {post.image && <img src={getImageUrl(post.image)} alt="post" />}
                 {post.content && <p>{post.content}</p>}
                 <button onClick={() => handleBuy(post.id)}>Comprar</button>
                 <button onClick={() => deletePost(post.id)}>Delete</button>
               </div>
             ) : (
               <>
-                {post.image && <img src={post.image} alt="post" />}
+                {post.image && <img src={getImageUrl(post.image)} alt="post" />}
                 <p>{post.content}</p>
                 <button onClick={() => deletePost(post.id)}>Delete</button>
               </>
