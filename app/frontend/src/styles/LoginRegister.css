@@ -2,14 +2,14 @@
 body {
   margin: 0;
   padding: 0;
-  background: #000000;
+  background: #0a0a0f; /* Preto azulado */
   font-family: "Arial", sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh;
   overflow: hidden;
-  color: #FFFFFF;
+  color: #e5e7eb; /* cinza claro suave */
 }
 
 .auth-wrapper {
@@ -18,9 +18,10 @@ body {
 
 /* ====================== MAIN CARD ====================== */
 .container {
-  background: rgba(8, 14, 20, 0.65);
+  background: rgba(20, 20, 35, 0.55); /* vidro escuro puxado pro violeta */
   border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0, 255, 180, 0.2), inset 0 0 10px rgba(0, 255, 180, 0.1);
+  box-shadow: 0 0 25px rgba(109, 40, 217, 0.25),
+              inset 0 0 10px rgba(88, 28, 135, 0.2);
   backdrop-filter: blur(20px);
   overflow: hidden;
   width: 900px;
@@ -29,7 +30,7 @@ body {
   display: flex;
   position: relative;
   transition: 0.6s ease-in-out;
-  border: 1px solid rgba(0, 255, 180, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.25); /* lilás neon */
 }
 
 /* Painéis deslizantes */
@@ -56,7 +57,6 @@ body {
   z-index: 1;
 }
 
-
 /* quando ativa o painel direito */
 .container.right-panel-active .sign-in-container {
   transform: translateX(100%);
@@ -80,60 +80,59 @@ form {
 
 h1 {
   font-size: 2.2rem;
-  color: #7fffd4;
-  text-shadow: 0 0 10px rgba(0,255,200,0.6);
+  color: #c084fc; /* lilás claro */
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
   margin-bottom: 15px;
 }
 
 /* Inputs neon */
 input {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(0,255,180,0.3);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(139, 92, 246, 0.35);
   border-radius: 8px;
   padding: 12px 14px;
   margin: 6px 0;
   width: 100%;
-  color: #d6ffff;
+  color: #e5e7ff;
   font-size: 0.95rem;
   outline: none;
   transition: 0.2s;
 }
 
 input:focus {
-  border-color: #00ffcc;
-  box-shadow: 0 0 10px rgba(0,255,200,0.4);
+  border-color: #a855f7;
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
 }
-
 
 /* Botões neon sci-fi */
 button {
   margin-top: 12px;
   border-radius: 10px;
   padding: 12px 45px;
-  background: linear-gradient(90deg, #00ffc8, #009dff);
+  background: linear-gradient(90deg, #7c3aed, #9333ea);
   border: none;
-  color: #042627;
+  color: #f4f2ff;
   font-weight: 700;
   letter-spacing: 1px;
   cursor: pointer;
-  box-shadow: 0 0 12px rgba(0,255,200,0.3);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.35);
   transition: 0.3s;
 }
 
 button:hover {
-  box-shadow: 0 0 18px rgba(0,255,200,0.6);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
   transform: scale(1.04);
 }
 
 /* Botão fantasma (overlay) */
 button.ghost {
   background: transparent;
-  border: 1px solid #00ffcc;
-  color: #00ffcc;
+  border: 1px solid #c084fc;
+  color: #c084fc;
 }
 
 button.ghost:hover {
-  background: rgba(0,255,200,0.15);
+  background: rgba(168, 85, 247, 0.15);
 }
 
 /* ====================== OVERLAY ====================== */
@@ -149,9 +148,9 @@ button.ghost:hover {
 }
 
 .overlay {
-  background: linear-gradient(120deg, #002b26, #003b41);
+  background: linear-gradient(120deg, #1f1b2e, #2a1f45);
   background-size: cover;
-  color: #d8ffff;
+  color: #e9d5ff;
   position: relative;
   left: -100%;
   height: 100%;
@@ -161,7 +160,7 @@ button.ghost:hover {
   align-items: center;
   justify-content: space-around;
   padding: 40px;
-  box-shadow: inset 0 0 40px rgba(0,255,200,0.25);
+  box-shadow: inset 0 0 40px rgba(168, 85, 247, 0.25);
 }
 
 /* overlay ativo */
@@ -180,31 +179,45 @@ button.ghost:hover {
   max-width: 40%;
 }
 
-/* ====================== MENSAGEM DE ERRO / SUCESSO ====================== */
-.auth-error, .auth-success {
-  margin-top: 20px;
-  text-align: center;
-  font-size: 1rem;
-  padding: 12px 18px;
-  border-radius: 8px;
-  width: 300px;
-  position: absolute;
+/* ====================== MENSAGEM ====================== */
+.auth-error,
+.auth-success {
+  position: fixed;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  padding: 20px 30px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  z-index: 1000;
+  min-width: 300px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 0.3s ease-out;
 }
 
 .auth-error {
-  background: rgba(255, 30, 60, 0.18);
-  border: 1px solid rgba(255, 80, 110, 0.45);
-  color: #ffabba;
-  box-shadow: 0 0 12px rgba(255, 80, 110, 0.4);
+  background: rgba(255, 60, 90, 0.9);
+  border: 2px solid rgba(255, 90, 120, 0.8);
+  color: #ffffff;
 }
 
 .auth-success {
-  background: rgba(0,255,180,0.18);
-  border: 1px solid rgba(0,255,180,0.5);
-  color: #affff4;
-  box-shadow: 0 0 12px rgba(0,255,180,0.4);
+  background: rgba(34, 197, 94, 0.9); /* Verde */
+  border: 2px solid rgba(34, 197, 94, 0.8);
+  color: #ffffff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* ====================== MOBILE ====================== */
@@ -232,33 +245,24 @@ button.ghost:hover {
   }
 }
 
-/* ============================
-   RECENTRALIZAÇÃO TOTAL
-   ============================ */
-
+/* ============================ RECENTRAL ============================ */
 .auth-wrapper {
   width: 100vw;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   position: relative;
 
-  /* mantém o background escuro/gamer */
-  background: radial-gradient(circle at center, #0f1b2b 0%, #05080d 70%);
+  background: radial-gradient(circle at center, #171223 0%, #0a0912 70%);
   overflow: hidden;
 }
 
-/* garante que o container volte pro centro mesmo após animações */
 .auth-wrapper > .container {
-  transform: translateZ(0); /* evita bugs no right-panel-active */
+  transform: translateZ(0);
   margin: 0 auto !important;
-
   display: flex;
   justify-content: center;
   align-items: stretch;
-
   position: relative;
 }

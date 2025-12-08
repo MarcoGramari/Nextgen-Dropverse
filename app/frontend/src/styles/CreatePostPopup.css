@@ -14,7 +14,7 @@
 
 /* Popup Content */
 .popup-content {
-  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  background: transparent;
   border-radius: 12px;
   padding: 20px;
   max-width: 500px;

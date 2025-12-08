@@ -63,27 +63,27 @@ export default function LoginRegister() {
 
   async function handleRegister(e) {
     e.preventDefault();
-    // limpa mensagens anteriores
     setErr("");
     setSuccess("");
 
     try {
       const res = await register(reg);
+      console.log("RETORNO BACKEND:", res); // pra debug
 
       if (res && res.ok) {
-        // mostrar sucesso dentro do card
         setSuccess("Perfil cadastrado");
-        // fecha o painel de registro visualmente
-        if (containerRef.current) containerRef.current.classList.remove("right-panel-active");
+        if (containerRef.current)
+          containerRef.current.classList.remove("right-panel-active");
 
-        if (successTimeoutRef.current) clearTimeout(successTimeoutRef.current);
+        if (successTimeoutRef.current)
+          clearTimeout(successTimeoutRef.current);
+
         successTimeoutRef.current = setTimeout(() => {
           setSuccess("");
-          // opcional: redirecionar após sucesso; comente se não quiser
-          // nav("/home");
         }, 3500);
+
       } else {
-        setErr(res && res.error ? res.error : "Erro ao cadastrar");
+        setErr(res?.error || "Erro ao cadastrar");
         if (errTimeoutRef.current) clearTimeout(errTimeoutRef.current);
         errTimeoutRef.current = setTimeout(() => setErr(""), 4000);
       }
@@ -93,6 +93,8 @@ export default function LoginRegister() {
       errTimeoutRef.current = setTimeout(() => setErr(""), 4000);
     }
   }
+
+
 
   return (
     <div className="auth-wrapper">

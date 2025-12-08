@@ -408,10 +408,6 @@ export default function Dashboard() {
                           <div className="product-info">
                             <h4 className="product-title">{product.titulo}</h4>
                             <div className="product-stats">
-                              <div className="stat-item">
-                                <span className="stat-icon">👁️</span>
-                                <span>{product.downloads || 0} visualizações</span>
-                              </div>
                               <div className="product-trend">+12%</div>
                             </div>
                           </div>

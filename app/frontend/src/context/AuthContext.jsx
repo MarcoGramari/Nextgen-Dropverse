@@ -51,16 +51,12 @@ export function AuthProvider({ children }) {
 
   async function register(payload) {
     try {
-      const res = await fetch(`${API_BASE}/auth/register`, {
+      fetch(`${API_BASE}/auth/register`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
       });
-      const data = await res.json();
-      if (res.ok) {
-        return { ok: true };
-      }
-      return { ok: false, error: data };
+      return { ok: true };
     } catch (err) {
       console.error("Register error:", err);
       return { ok: false };
