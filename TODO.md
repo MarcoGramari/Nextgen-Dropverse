@@ -1,11 +1,14 @@
-# TODO: Fix Profile Picture Display Issue
+# Dashboard Fixes TODO
 
-## Completed Tasks
-- [x] Identified the issue: Profile.jsx was using filename directly for avatar src instead of full URL
-- [x] Added getImageUrl function to Profile.jsx to construct full image URLs
-- [x] Updated avatar img src to use getImageUrl(profileData?.avatar)
-- [x] Updated post image src in product posts to use getImageUrl
-- [x] Updated post image src in social posts to use getImageUrl
-
-## Summary
-The profile picture was not showing because the frontend was trying to load the image using just the filename (e.g., "abc123.png") instead of the full URL (e.g., "http://localhost:5000/uploads/abc123.png"). By adding the getImageUrl helper function and using it consistently, the images should now load properly.
+- [x] Update has_products to check Post with tipo="product"
+- [ ] Seller dashboard: Change total_vendas to join Post
+- [ ] Seller dashboard: Change total_produtos to count Post with tipo="product"
+- [ ] Seller dashboard: Update vendas_por_mes to join Post
+- [ ] Seller dashboard: Update sales_history to join Post
+- [ ] Seller dashboard: Update total_earned to join Post
+- [ ] Seller dashboard: Update produtos_mais_vistos to query Post ordered by created_at desc
+- [ ] Buyer dashboard: Update total_earned to join Post
+- [ ] Buyer dashboard: Update earnings_por_mes to join Post
+- [ ] Buyer dashboard: Change recent_purchases to query Post instead of Produto
+- [ ] Buyer dashboard: Change purchase_activities to query Post
+- [ ] Test dashboard to ensure earnings and recent purchases display correctly

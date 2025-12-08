@@ -213,6 +213,18 @@ class Report(db.Model):
     status = db.Column(db.String(50), default="Pendente")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
+class Follow(db.Model):
+    __tablename__ = "follows"
+    id = db.Column(db.Integer, primary_key=True)
+    follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    followed_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    __table_args__ = (db.UniqueConstraint('follower_id', 'followed_id', name='_follower_followed_uc'),)
+
+    follower = db.relationship('User', foreign_keys=[follower_id], backref='following_rel')
+    followed = db.relationship('User', foreign_keys=[followed_id], backref='followers_rel')
+
 class Badge(db.Model):
     __tablename__ = "badges"
     id = db.Column(db.Integer, primary_key=True)

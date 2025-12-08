@@ -72,7 +72,7 @@ export default function LoginRegister() {
 
       if (res && res.ok) {
         // mostrar sucesso dentro do card
-        setSuccess("Registro completo! Bem-vindo ao Dropverse.");
+        setSuccess("Perfil cadastrado");
         // fecha o painel de registro visualmente
         if (containerRef.current) containerRef.current.classList.remove("right-panel-active");
 
@@ -83,7 +83,7 @@ export default function LoginRegister() {
           // nav("/home");
         }, 3500);
       } else {
-        setErr(res && res.error ? res.error : "Erro ao registrar.");
+        setErr(res && res.error ? res.error : "Erro ao cadastrar");
         if (errTimeoutRef.current) clearTimeout(errTimeoutRef.current);
         errTimeoutRef.current = setTimeout(() => setErr(""), 4000);
       }

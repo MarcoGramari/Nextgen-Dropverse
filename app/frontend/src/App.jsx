@@ -7,6 +7,7 @@ import LoginRegister from "./pages/LoginRegister";
 import Dashboard from "./pages/Dashboard";
 import ProductDetails from "./pages/ProductDetails";
 import Profile from "./pages/Profile";
+import SearchResults from "./pages/SearchResults";
 import Settings from "./pages/ConfigPage";
 import { useAuth } from "./context/AuthContext";
 
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="product/:id" element={<ProductDetails />} />
           <Route path="profile/:username?" element={<Profile />} />
+          <Route path="search" element={<SearchResults />} />
           <Route path="settings" element={<Settings />} />
         </Route>
 
@@ -50,5 +52,3 @@ export default function App() {
     return <div style={{ color: "red", padding: "20px", background: "#0b0c10", height: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>Error: {err.message}</div>;
   }
 }
-
-[]

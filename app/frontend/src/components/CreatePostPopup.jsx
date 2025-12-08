@@ -101,7 +101,6 @@ export default function CreatePostPopup({ onClose }) {
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
         <div className="popup-header">
           <h2>Criar Novo Post</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
         </div>
 
         <div className="post-type-toggle">

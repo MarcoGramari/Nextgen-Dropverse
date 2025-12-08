@@ -1,0 +1,392 @@
+/* ====================================== */
+/*         SIDEBAR — SPACESHIP THEME      */
+/*       (BASEADO NO SEU layout.css)      */
+/* ====================================== */
+
+:root {
+    /* Usa EXATAMENTE seus tokens atuais */
+    --sb-width: var(--sidebar-width, 240px);
+    --sb-width-min: var(--sidebar-width-min, 78px);
+
+    --accent-cyan: #00FFFF;
+    --accent-purple: #FF00FF;
+    --accent-pink: #FF00FF;
+    --accent-green: #00FF00;
+
+    --glass: rgba(0,255,0,0.1);
+    --glass-strong: rgba(0,255,0,0.2);
+
+    --text-primary: #FFFFFF;
+    --text-muted: #FFFFFF;
+
+    --shadow-neon:
+        0 0 20px rgba(0,255,0,0.3),
+        0 0 30px rgba(255,0,255,0.3),
+        0 0 10px rgba(0,255,255,0.3);
+}
+
+/* ====================================== */
+/*              SIDEBAR BASE              */
+/* ====================================== */
+
+.sidebar {
+    width: var(--sb-width);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+    border-right: 1px solid rgba(0,255,238,0.12);
+    backdrop-filter: blur(10px) saturate(1.25);
+
+    padding: 1.2rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    /* Transições REALMENTE suaves */
+    transition:
+        width 0.22s cubic-bezier(.25, .46, .45, .94),
+        background 0.2s ease,
+        filter 0.2s ease,
+        padding 0.2s ease;
+}
+
+/* ====================================== */
+/*   RETRAÇÃO SUPER-FLUIDA AO HOVER-OUT   */
+/* ====================================== */
+
+.sidebar:not(:hover) {
+    width: var(--sb-width-min);
+    padding-left: 0.9rem;
+    padding-right: 0.9rem;
+    filter: brightness(0.92);
+}
+
+/* -------------------------------------- */
+/*    O TEXTO DESAPARECE COM SUAVIDADE    */
+/* -------------------------------------- */
+
+.sidebar .text,
+.sidebar-header h3 {
+    opacity: 1;
+    transition: opacity 0.18s ease-out;
+}
+
+.sidebar:not(:hover) .text,
+.sidebar:not(:hover) .sidebar-header h3 {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ====================================== */
+/*            CABEÇALHO / LOGO            */
+/* ====================================== */
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ====================================== */
+/*          ÍCONES SEMPRE VISÍVEIS        */
+/* ====================================== */
+
+.sidebar .icon {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    filter: drop-shadow(0 0 4px rgba(0,255,255,0.4));
+
+    transition:
+        transform 0.22s cubic-bezier(.25, .46, .45, .94),
+        opacity 0.18s ease-out;
+}
+
+/* Leve "aproximada" quando retrai */
+.sidebar:not(:hover) .icon {
+    transform: translateX(2px);
+}
+
+/* ====================================== */
+/*            LINKS DA SIDEBAR            */
+/* ====================================== */
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    padding: 12px;
+    border-radius: 12px;
+
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    border: 1px solid rgba(255,255,255,0.04);
+
+    text-decoration: none;
+    color: var(--text-muted);
+
+    transition:
+        background 0.2s ease,
+        border 0.2s ease,
+        box-shadow 0.22s ease,
+        transform 0.22s ease;
+}
+
+.sidebar-link:hover {
+    background: rgba(0,255,238,0.06);
+    border-color: rgba(0,255,238,0.12);
+    color: var(--accent-cyan);
+
+    box-shadow:
+        0 0 12px rgba(0,255,238,0.18),
+        0 0 20px rgba(123,75,255,0.20);
+}
+
+/* ATIVO */
+.sidebar-link.active {
+    background: linear-gradient(
+        90deg,
+        rgba(42,255,156,0.08),
+        rgba(123,75,255,0.06)
+    );
+    border-color: rgba(0,255,238,0.15);
+    color: var(--accent-cyan);
+    box-shadow: var(--shadow-neon);
+}
+
+/* ====================================== */
+/*              BOTÃO DE LOGOUT           */
+/* ====================================== */
+
+.logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: rgba(255,105,180,0.1);
+    color: var(--accent-pink);
+}
+
+/* ====================================== */
+/*           FOOTER DA SIDEBAR            */
+/* ====================================== */
+
+.sidebar-footer {
+    margin-top: 1.2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* ====================================== */
+/*              MOBILE HIDE               */
+/* ====================================== */
+
+@media (max-width:900px) {
+    .sidebar {
+        display: none;
+    }
+}
+
+/* ============================ */
+/*   AJUSTE DOS BOTÕES INFERIORES  */
+/* ============================ */
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-footer .sidebar-link {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 238, 0.10);
+    box-shadow:
+        0 0 8px rgba(0,255,238,0.08),
+        0 0 14px rgba(0,255,255,0.05);
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    transition: 0.22s ease;
+}
+
+/* Hover igual aos botões do topo */
+.sidebar-footer .sidebar-link:hover {
+    background: rgba(0,255,238,0.08);
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 14px rgba(0,255,238,0.15),
+        0 0 22px rgba(123,75,255,0.10);
+}
+
+/* Ícone sempre visível mesmo retraído */
+.sidebar-footer .icon {
+    min-width: 20px;
+}
+
+/* Texto some quando a sidebar retrai */
+.sidebar:not(:hover) .sidebar-footer .text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Botão de logout com leve vermelho */
+.sidebar-footer .logout {
+    border-color: rgba(255, 70, 70, 0.25);
+}
+
+.sidebar-footer .logout:hover {
+    background: rgba(255, 60, 60, 0.18);
+}
+
+.sidebar-footer .sidebar-link {
+    width: 100%;
+}
+
+.sidebar-footer .sidebar-link {
+    padding: 12px 14px !important;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-footer .icon {
+    min-width: 22px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =============================== */
+/*   CORREÇÃO: FIXA O FOOTER      */
+/* =============================== */
+
+/* Faz o menu ocupar o espaço inteiro da sidebar */
+.sidebar-nav {
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cria um footer REAL no fim da sidebar */
+.sidebar-footer {
+    margin-top: auto !important;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 10px;
+}
+
+/* Faz os botões do footer terem o mesmo estilo */
+.sidebar-footer .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    width: 100%;
+}
+
+/* Some o texto quando retrair */
+.sidebar:not(:hover) .sidebar-footer .text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ============================= */
+/*  FORCE FOOTER TO BOTTOM (FIX) */
+/*  Paste this at the END of Sidebar.css */
+/* ============================= */
+
+/* Ensure sidebar is a column flex container and positioned relative for absolute fallback */
+.sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+
+/* Make menu take available vertical space */
+.sidebar > .sidebar-nav,
+.sidebar nav.sidebar-nav {
+  flex: 1 1 auto !important;
+  min-height: 0 !important; /* allows proper scrolling inside flex children */
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Remove qualquer estilização especial do footer */
+.sidebar-footer {
+    margin-top: auto;     /* joga pro fundo sem gambiarra */
+    padding: 0;           /* igual ao menu */
+    display: flex;
+    flex-direction: column;
+}
+
+/* botões iguais aos links do menu */
+.sidebar-footer .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+
+    text-decoration: none;
+    background: none;
+    border: none;
+
+    color: var(--text-muted);
+    font-size: 15px;
+
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+/* Ensure buttons work like links */
+.sidebar-footer button.sidebar-link {
+    width: 100%;
+    text-align: left;
+}
+
+/* hover igual ao menu */
+.sidebar-footer .sidebar-link:hover {
+    background: rgba(0,255,238,0.1);
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
+}
+
+/* logout vermelho no hover */
+.sidebar-footer .logout:hover {
+    background: rgba(255, 60, 60, 0.15);
+    color: #ff4d4d;
+}

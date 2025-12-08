@@ -56,7 +56,11 @@ export function AuthProvider({ children }) {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
       });
-      return res;
+      const data = await res.json();
+      if (res.ok) {
+        return { ok: true };
+      }
+      return { ok: false, error: data };
     } catch (err) {
       console.error("Register error:", err);
       return { ok: false };

@@ -217,3 +217,28 @@ def create_comment(post_id):
         "msg": "Comentário criado com sucesso",
         "comment": comment.to_dict()
     }), 201
+
+@bp.route("/posts/<int:post_id>/comments/<int:comment_id>", methods=["DELETE"])
+def delete_comment(post_id, comment_id):
+    user = get_current_user_from_header(request)
+    if not user:
+        return jsonify({"error": "not authenticated"}), 401
+
+    comment = Comment.query.get_or_404(comment_id)
+
+    # Check if comment belongs to the post
+    if comment.post_id != post_id:
+        return jsonify({"error": "Comment does not belong to this post"}), 400
+
+    # Check if user is the author of the comment
+    if comment.user_id != user.id:
+        return jsonify({"error": "not authorized"}), 403
+
+    try:
+        db.session.delete(comment)
+        db.session.commit()
+    except SQLAlchemyError as e:
+        db.session.rollback()
+        return jsonify({"error": "Erro ao deletar comentário", "detail": str(e)}), 500
+
+    return jsonify({"msg": "Comentário deletado com sucesso"}), 200

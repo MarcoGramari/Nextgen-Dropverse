@@ -1,0 +1,149 @@
+.search-results-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.search-results-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+.results-section {
+  margin-bottom: 40px;
+}
+
+.results-section h2 {
+  margin-bottom: 20px;
+  color: #fff;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+}
+
+.profiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.profile-banner {
+  background: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.profile-banner:hover {
+  background: #2a2a2a;
+}
+
+.profile-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-username {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.profile-bio {
+  color: #ccc;
+  font-size: 14px;
+}
+
+.products-list, .posts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.product-item, .post-item {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.product-item h3, .post-item p {
+  margin: 0 0 10px 0;
+  color: #fff;
+}
+
+.product-item p, .product-item span {
+  color: #ccc;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.product-price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.product-category {
+  font-size: 12px;
+  color: #9ca3af;
+  background: #374151;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.buy-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  border: none;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  width: 100%;
+}
+
+.buy-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+}
+
+.buy-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.loading {
+  text-align: center;
+  padding: 50px;
+  color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

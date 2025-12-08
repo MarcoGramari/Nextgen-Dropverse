@@ -1,26 +1,138 @@
-.settings-container {
+/* Settings Page Styles */
+.settings-page {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
 }
 
-.setting-box {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+.settings-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #00aaff;
+  font-size: 2.5em;
+  font-weight: bold;
 }
 
-.setting-box select {
-  background: #111;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #222;
-}
-
-.save-btn {
-  padding: 12px 20px;
-  background: #00aaff;
-  border: none;
-  color: white;
+.settings-section {
+  background-color: #2a2a2a;
   border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid #444;
+}
+
+.settings-section h2 {
+  margin-bottom: 15px;
+  color: #00aaff;
+  font-size: 1.5em;
+  border-bottom: 2px solid #00aaff;
+  padding-bottom: 5px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #cccccc;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  border-radius: 5px;
+  background-color: #333;
+  color: #ffffff;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #00aaff;
+  box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #00aaff;
+  border: none;
+  color: #ffffff;
+  border-radius: 5px;
   cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0088cc;
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.logout-btn {
+  background-color: #ff4444;
+  margin-top: 10px;
+}
+
+.logout-btn:hover {
+  background-color: #cc3333;
+}
+
+.message {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.message:contains("sucesso") {
+  background-color: #44aa44;
+  color: #ffffff;
+}
+
+.message:contains("Erro") {
+  background-color: #aa4444;
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .settings-page {
+    padding: 10px;
+  }
+
+  .settings-section {
+    padding: 15px;
+  }
+
+  .settings-page h1 {
+    font-size: 2em;
+  }
+
+  .settings-section h2 {
+    font-size: 1.3em;
+  }
 }

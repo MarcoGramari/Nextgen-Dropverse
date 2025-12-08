@@ -61,10 +61,10 @@
 
 .auth-card .btn {
   padding: 0.9rem 1rem;
-  background: linear-gradient(90deg, #7c5cff, #66fcf1);
-  color: #071018;
+  background: #3b82f6;
+  color: #ffffff;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -78,7 +78,7 @@
 
 .auth-card .btn:hover:not(:disabled) {
   transform: translateY(-3px);
-  box-shadow: 0 10px 28px rgba(124,92,255,0.12);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .auth-card .error {

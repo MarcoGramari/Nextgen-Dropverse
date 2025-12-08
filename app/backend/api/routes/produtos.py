@@ -72,3 +72,43 @@ def download_produto(filename):
         produto.downloads = (produto.downloads or 0) + 1
         db.session.commit()
     return send_from_directory(uploads_dir, filename, as_attachment=True)
+
+@bp.route("/produtos/purchase/<int:post_id>", methods=["POST"])
+def purchase_product(post_id):
+    from utils.jwt_utils import decode_jwt
+    from models import Post
+
+    auth = request.headers.get("Authorization","")
+    token = auth.replace("Bearer ","")
+    if not token:
+        return jsonify({"error":"not authenticated"}), 401
+
+    payload = decode_jwt(token)
+    if not payload:
+        return jsonify({"error":"invalid token"}), 401
+
+    user_id = payload.get("user_id")
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"error":"user not found"}), 404
+
+    # Find the product post
+    post = Post.query.get_or_404(post_id)
+    if post.tipo != "product":
+        return jsonify({"error":"not a product post"}), 400
+
+    # Check if already purchased (optional)
+    existing_purchase = Purchase.query.filter_by(comprador_id=user_id, produto_id=post.id).first()
+    if existing_purchase:
+        return jsonify({"error":"already purchased"}), 400
+
+    # Create purchase record
+    purchase = Purchase(
+        comprador_id=user_id,
+        produto_id=post.id,
+        price_paid=post.preco or 0
+    )
+    db.session.add(purchase)
+    db.session.commit()
+
+    return jsonify({"message":"Purchase successful", "purchase_id": purchase.id})
