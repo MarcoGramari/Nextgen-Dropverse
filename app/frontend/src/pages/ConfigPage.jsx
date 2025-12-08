@@ -17,26 +17,24 @@ export default function ConfigPage() {
     confirmPassword: ""
   });
   const [privacyData, setPrivacyData] = useState({
-    profileVisibility: "public" // or "private"
+    profileVisibility: "public"
   });
   const [notificationData, setNotificationData] = useState({
     emailNotifications: true,
     pushNotifications: false
   });
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const handleProfileChange = (e) => {
+  const handleProfileChange = (e) =>
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
-  };
 
-  const handleAccountChange = (e) => {
+  const handleAccountChange = (e) =>
     setAccountData({ ...accountData, [e.target.name]: e.target.value });
-  };
 
-  const handlePrivacyChange = (e) => {
+  const handlePrivacyChange = (e) =>
     setPrivacyData({ ...privacyData, [e.target.name]: e.target.value });
-  };
 
   const handleNotificationChange = (e) => {
     const { name, checked } = e.target;
@@ -50,7 +48,7 @@ export default function ConfigPage() {
       await api.put("/user/update", profileData);
       setMessage("Perfil atualizado com sucesso!");
     } catch (err) {
-      console.error("Erro ao atualizar perfil:", err);
+      console.error(err);
       setMessage("Erro ao atualizar perfil");
     } finally {
       setLoading(false);
@@ -65,15 +63,19 @@ export default function ConfigPage() {
     }
     setLoading(true);
     try {
-      // Assuming backend has endpoint for password change
       await api.put("/user/change-password", {
         currentPassword: accountData.currentPassword,
         newPassword: accountData.newPassword
       });
       setMessage("Senha alterada com sucesso!");
-      setAccountData({ ...accountData, currentPassword: "", newPassword: "", confirmPassword: "" });
+      setAccountData({
+        ...accountData,
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+      });
     } catch (err) {
-      console.error("Erro ao alterar senha:", err);
+      console.error(err);
       setMessage("Erro ao alterar senha");
     } finally {
       setLoading(false);
@@ -84,11 +86,10 @@ export default function ConfigPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Assuming backend has endpoint for privacy settings
       await api.put("/user/privacy", privacyData);
       setMessage("Configurações de privacidade atualizadas!");
     } catch (err) {
-      console.error("Erro ao atualizar privacidade:", err);
+      console.error(err);
       setMessage("Erro ao atualizar privacidade");
     } finally {
       setLoading(false);
@@ -99,11 +100,10 @@ export default function ConfigPage() {
     e.preventDefault();
     setLoading(true);
     try {
-      // Assuming backend has endpoint for notifications
       await api.put("/user/notifications", notificationData);
       setMessage("Preferências de notificação atualizadas!");
     } catch (err) {
-      console.error("Erro ao atualizar notificações:", err);
+      console.error(err);
       setMessage("Erro ao atualizar notificações");
     } finally {
       setLoading(false);
@@ -111,101 +111,63 @@ export default function ConfigPage() {
   };
 
   return (
-    <div className="settings-page">
-      <h1>Configurações</h1>
+    <div className="settings-page modern">
+      <h1 className="page-title">Configurações</h1>
 
-      <div className="settings-section">
+      <div className="settings-section card fade-in">
         <h2>Perfil</h2>
         <form onSubmit={handleProfileSubmit}>
           <div className="form-group">
             <label>Nome:</label>
-            <input
-              type="text"
-              name="nome"
-              value={profileData.nome}
-              onChange={handleProfileChange}
-              required
-            />
+            <input type="text" name="nome" value={profileData.nome} onChange={handleProfileChange} required />
           </div>
 
           <div className="form-group">
             <label>Bio:</label>
-            <textarea
-              name="bio"
-              value={profileData.bio}
-              onChange={handleProfileChange}
-              rows="3"
-            />
+            <textarea name="bio" value={profileData.bio} onChange={handleProfileChange} rows="3" />
           </div>
 
           <div className="form-group">
             <label>Avatar URL:</label>
-            <input
-              type="url"
-              name="avatar"
-              value={profileData.avatar}
-              onChange={handleProfileChange}
-            />
+            <input type="url" name="avatar" value={profileData.avatar} onChange={handleProfileChange} />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn" disabled={loading}>
             {loading ? "Salvando..." : "Salvar Perfil"}
           </button>
         </form>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section card fade-in">
         <h2>Gerenciamento de Conta</h2>
         <form onSubmit={handleAccountSubmit}>
           <div className="form-group">
             <label>Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={accountData.email}
-              onChange={handleAccountChange}
-              required
-            />
+            <input type="email" name="email" value={accountData.email} onChange={handleAccountChange} required />
           </div>
 
           <div className="form-group">
             <label>Senha Atual:</label>
-            <input
-              type="password"
-              name="currentPassword"
-              value={accountData.currentPassword}
-              onChange={handleAccountChange}
-              required
-            />
+            <input type="password" name="currentPassword" value={accountData.currentPassword} onChange={handleAccountChange} required />
           </div>
 
           <div className="form-group">
             <label>Nova Senha:</label>
-            <input
-              type="password"
-              name="newPassword"
-              value={accountData.newPassword}
-              onChange={handleAccountChange}
-            />
+            <input type="password" name="newPassword" value={accountData.newPassword} onChange={handleAccountChange} />
           </div>
 
           <div className="form-group">
             <label>Confirmar Nova Senha:</label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={accountData.confirmPassword}
-              onChange={handleAccountChange}
-            />
+            <input type="password" name="confirmPassword" value={accountData.confirmPassword} onChange={handleAccountChange} />
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn" disabled={loading}>
             {loading ? "Alterando..." : "Alterar Senha"}
           </button>
         </form>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section card fade-in">
         <h2>Privacidade</h2>
         <form onSubmit={handlePrivacySubmit}>
           <div className="form-group">
@@ -216,53 +178,43 @@ export default function ConfigPage() {
             </select>
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn" disabled={loading}>
             {loading ? "Salvando..." : "Salvar Privacidade"}
           </button>
         </form>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section card fade-in">
         <h2>Notificações</h2>
         <form onSubmit={handleNotificationSubmit}>
-          <div className="form-group">
+          <div className="form-group checkbox">
             <label>
-              <input
-                type="checkbox"
-                name="emailNotifications"
-                checked={notificationData.emailNotifications}
-                onChange={handleNotificationChange}
-              />
+              <input type="checkbox" name="emailNotifications" checked={notificationData.emailNotifications} onChange={handleNotificationChange} />
               Receber notificações por email
             </label>
           </div>
 
-          <div className="form-group">
+          <div className="form-group checkbox">
             <label>
-              <input
-                type="checkbox"
-                name="pushNotifications"
-                checked={notificationData.pushNotifications}
-                onChange={handleNotificationChange}
-              />
+              <input type="checkbox" name="pushNotifications" checked={notificationData.pushNotifications} onChange={handleNotificationChange} />
               Receber notificações push
             </label>
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="btn" disabled={loading}>
             {loading ? "Salvando..." : "Salvar Notificações"}
           </button>
         </form>
       </div>
 
-      <div className="settings-section">
+      <div className="settings-section card fade-in">
         <h2>Conta</h2>
-        <button onClick={logout} className="logout-btn">
+        <button onClick={logout} className="btn red">
           Sair
         </button>
       </div>
 
-      {message && <p className="message">{message}</p>}
+      {message && <p className="message fade-in">{message}</p>}
     </div>
   );
 }

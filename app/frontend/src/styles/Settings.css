@@ -1,36 +1,175 @@
 /* Settings Page Styles */
 .settings-page {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #1a1a1a;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
   color: #ffffff;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  position: relative;
 }
 
+.settings-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(76, 81, 191, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(109, 40, 217, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(4, 120, 87, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --- TÍTULO "Configurações" --- */
 .settings-page h1 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #00aaff;
-  font-size: 2.5em;
-  font-weight: bold;
+  margin-bottom: 60px;
+  background: linear-gradient(135deg, #4c51bf 0%, #6d28d9 50%, #230478 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 4rem;
+  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: -2px;
+  text-shadow: 0 0 40px rgba(76, 81, 191, 0.3);
+  animation: fadeInUp 1s ease-out, glow 2s ease-in-out infinite alternate;
+  position: relative;
 }
 
+.settings-page h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, #4c51bf, #6d28d9, #230478);
+  border-radius: 2px;
+  animation: slideIn 1.2s ease-out 0.3s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 20px rgba(76, 81, 191, 0.4));
+  }
+  to {
+    filter: drop-shadow(0 0 30px rgba(109, 40, 217, 0.6));
+  }
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 120px;
+    opacity: 1;
+  }
+}
+
+/* Section */
 .settings-section {
-  background-color: #2a2a2a;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  border: 1px solid #444;
+  background: rgba(26, 26, 26, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 40px;
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
+.settings-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #4c51bf, #6d28d9, #047857);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.settings-section:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(76, 81, 191, 0.2);
+}
+
+.settings-section:hover::before {
+  opacity: 1;
+}
+
+/* Section Titles */
 .settings-section h2 {
-  margin-bottom: 15px;
-  color: #00aaff;
-  font-size: 1.5em;
-  border-bottom: 2px solid #00aaff;
-  padding-bottom: 5px;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #4c51bf 0%, #6d28d9 50%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.6em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+.settings-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #4c51bf, #6d28d9, #047857);
+  border-radius: 2px;
+  animation: underlineExpand 1s ease-out 0.5s both;
+}
+
+@keyframes titleGlow {
+  from {
+    filter: drop-shadow(0 0 8px rgba(76, 81, 191, 0.3));
+  }
+  to {
+    filter: drop-shadow(0 0 12px rgba(109, 40, 217, 0.5));
+  }
+}
+
+@keyframes underlineExpand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 60px;
+    opacity: 1;
+  }
 }
 
 .form-group {
@@ -39,30 +178,49 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #cccccc;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #e5e5e5;
 }
 
+/* Inputs */
 .form-group input,
 .form-group textarea,
 .form-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 5px;
-  background-color: #333;
+  padding: 20px 24px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #ffffff;
-  font-size: 1em;
-  box-sizing: border-box;
+  font-size: 1.1em;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #00aaff;
-  box-shadow: 0 0 5px rgba(0, 170, 255, 0.5);
+  border-color: #4c51bf;
+  box-shadow:
+    0 0 0 3px rgba(76, 81, 191, 0.1),
+    0 8px 32px rgba(76, 81, 191, 0.2);
+  background: rgba(26, 26, 26, 0.9);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.3s ease;
+}
+
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .form-group textarea {
@@ -70,52 +228,105 @@
   min-height: 80px;
 }
 
+/* Buttons */
 button {
-  padding: 12px 20px;
-  background-color: #00aaff;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #4c51bf 0%, #6d28d9 100%);
   border: none;
   color: #ffffff;
-  border-radius: 5px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 1em;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(76, 81, 191, 0.3);
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
 }
 
 button:hover {
-  background-color: #0088cc;
+  background: linear-gradient(135deg, #3730a3 0%, #5b21b6 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(76, 81, 191, 0.4);
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(76, 81, 191, 0.3);
 }
 
 button:disabled {
-  background-color: #555;
+  background: rgba(85, 85, 85, 0.5);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
+/* Logout button */
 .logout-btn {
-  background-color: #ff4444;
-  margin-top: 10px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  margin-top: 20px;
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
 }
 
 .logout-btn:hover {
-  background-color: #cc3333;
+  background: linear-gradient(135deg, #b91c1c 0%, #dc2626 100%);
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
 }
 
+/* Feedback message */
 .message {
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 5px;
+  margin-top: 30px;
+  padding: 16px 24px;
+  border-radius: 12px;
   text-align: center;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 1em;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: messageSlideIn 0.5s ease-out;
 }
 
 .message:contains("sucesso") {
-  background-color: #44aa44;
-  color: #ffffff;
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border-color: rgba(34, 197, 94, 0.3);
+  box-shadow: 0 4px 16px rgba(34, 197, 94, 0.2);
 }
 
 .message:contains("Erro") {
-  background-color: #aa4444;
-  color: #ffffff;
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  border-color: rgba(220, 38, 38, 0.3);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.2);
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Design */
@@ -125,14 +336,14 @@ button:disabled {
   }
 
   .settings-section {
-    padding: 15px;
+    padding: 16px;
   }
 
   .settings-page h1 {
-    font-size: 2em;
+    font-size: 2.2rem;
   }
 
   .settings-section h2 {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 }

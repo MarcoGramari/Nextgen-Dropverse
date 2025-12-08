@@ -43,16 +43,9 @@ export default function Home() {
       case "Todos os Posts":
         // Show all posts as-is
         break;
-      case "Seguindo":
-        // For now, show all posts (would need following logic)
-        break;
       case "Trending":
         // Sort by likes (most liked first)
         filtered.sort((a, b) => b.likes - a.likes);
-        break;
-      case "Recentes":
-        // Sort by creation date (most recent first)
-        filtered.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
         break;
       default:
         break;
@@ -215,22 +208,10 @@ export default function Home() {
           Todos os Posts
         </button>
         <button
-          className={`filter-btn ${activeFilter === "Seguindo" ? "active" : ""}`}
-          onClick={() => handleFilterClick("Seguindo")}
-        >
-          Seguindo
-        </button>
-        <button
           className={`filter-btn ${activeFilter === "Trending" ? "active" : ""}`}
           onClick={() => handleFilterClick("Trending")}
         >
           Trending
-        </button>
-        <button
-          className={`filter-btn ${activeFilter === "Recentes" ? "active" : ""}`}
-          onClick={() => handleFilterClick("Recentes")}
-        >
-          Recentes
         </button>
       </div>
 
