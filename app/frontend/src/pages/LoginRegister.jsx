@@ -100,7 +100,7 @@ export default function LoginRegister() {
     <div className="auth-wrapper">
       <div className="container" id="container" ref={containerRef}>
 
-        {/* ================= SIGN UP ================= */}
+        {/* SIGN UP */}
         <div className="form-container sign-up-container">
           <form onSubmit={handleRegister}>
             <h1>Criar Conta</h1>
@@ -142,7 +142,7 @@ export default function LoginRegister() {
           </form>
         </div>
 
-        {/* ================= LOGIN ================= */}
+        {/* LOGIN */}
         <div className="form-container sign-in-container">
           <form onSubmit={handleLogin}>
             <h1>Entrar</h1>
@@ -166,7 +166,7 @@ export default function LoginRegister() {
           </form>
         </div>
 
-        {/* =============== OVERLAY =============== */}
+        {/*  OVERLAY  */}
         <div className="overlay-container">
           <div className="overlay">
 

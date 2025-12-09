@@ -334,7 +334,7 @@ export default function Dashboard() {
         <div className="content-grid">
           {analytics.user_type === "seller" && (
             <>
-              {/* Analytics Section */}
+              {/* Sessão de Análises */}
               <div className="analytics-section">
                 <div className="section-header">
                   <h2>Analytics</h2>
@@ -393,7 +393,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Insights Section */}
+              {/* Visão geral */}
               <div className="insights-section">
                 <div className="top-products-card">
                   <div className="card-header">
@@ -487,7 +487,7 @@ export default function Dashboard() {
 
           {analytics.user_type === "buyer" && (
             <>
-              {/* Recent Purchases Section */}
+              {/* Produtos comprados */}
               <div className="analytics-section">
                 <div className="section-header">
                   <h2>Compras Recentes</h2>
@@ -525,7 +525,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Earnings Chart Section */}
+              {/* Ganhos */}
               <div className="analytics-section">
                 <div className="section-header">
                   <h2>Ganhos por Mês</h2>
@@ -582,7 +582,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Liked Products Section */}
+              {/* Produtos linkados */}
               <div className="insights-section">
                 <div className="top-products-card">
                   <div className="card-header">
@@ -650,7 +650,7 @@ export default function Dashboard() {
 
           {analytics.user_type === "general" && (
             <>
-              {/* Profile Overview Section */}
+              {/* Visão geral do perfil */}
               <div className="analytics-section">
                 <div className="section-header">
                   <h2>Seu Perfil</h2>
@@ -688,7 +688,7 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Badges and Activity Section */}
+              {/* Atividade geral do perfil */}
               <div className="insights-section">
                 <div className="top-products-card">
                   <div className="card-header">

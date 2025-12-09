@@ -71,10 +71,10 @@ export default function Feed() {
     try {
       await api.post(`/posts/${postId}/comments`, { conteudo: content });
       setNewComment(prev => ({ ...prev, [postId]: "" }));
-      // Refresh comments
+      // Atualizar comentários
       const res = await api.get(`/posts/${postId}/comments`);
       setComments(prev => ({ ...prev, [postId]: res.data }));
-      // Update comment count
+      // Atualizar contágem de comentários
       setPosts(posts.map(post => post.id === postId ? { ...post, comments_count: (post.comments_count || 0) + 1 } : post));
     } catch (err) {
       console.error("Error posting comment:", err);
@@ -86,10 +86,10 @@ export default function Feed() {
 
     try {
       await api.delete(`/posts/${postId}/comments/${commentId}`);
-      // Refresh comments
+      // Recarregar comentários
       const res = await api.get(`/posts/${postId}/comments`);
       setComments(prev => ({ ...prev, [postId]: res.data }));
-      // Update comment count
+      // Atualizar contágem de comentários
       setPosts(posts.map(post => post.id === postId ? { ...post, comments_count: Math.max((post.comments_count || 0) - 1, 0) } : post));
     } catch (err) {
       console.error("Error deleting comment:", err);
@@ -131,7 +131,7 @@ export default function Feed() {
 
   return (
     <div className="feed-container">
-      {/* Create Post Section */}
+      {/* Criar post */}
       <div className="create-post-section">
         <div className="create-post-card">
           <div className="create-post-header">

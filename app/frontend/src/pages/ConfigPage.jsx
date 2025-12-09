@@ -218,3 +218,5 @@ export default function ConfigPage() {
     </div>
   );
 }
+
+// tem quase nada funcionando nessa bomba

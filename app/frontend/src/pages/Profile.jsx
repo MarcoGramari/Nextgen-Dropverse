@@ -62,7 +62,7 @@ export default function Profile() {
       setProfileLoaded(true);
     } catch (err) {
       console.error("Error fetching profile:", err);
-      setProfileLoaded(true); // Still set to true to avoid infinite loading
+      setProfileLoaded(true); // evita loading infinito
     }
   };
 
@@ -200,7 +200,7 @@ export default function Profile() {
         await api.post(`/user/follow/${username}`);
         setIsFollowing(true);
       }
-      // Refresh stats after follow/unfollow
+      // Recarrega automaticamente os statos de seguidores
       fetchStats();
     } catch (err) {
       console.error("Error following/unfollowing user:", err);
@@ -211,7 +211,7 @@ export default function Profile() {
   const handleLike = async (postId) => {
     try {
       await api.post(`/posts/${postId}/like`);
-      // Refresh posts to update like count
+      // Recarrega posts e likes automaticamente após curtir
       fetchPosts();
     } catch (err) {
       console.error("Error liking post:", err);
@@ -257,10 +257,9 @@ export default function Profile() {
 
   return (
     <div className="profile-container">
-      {/* Profile Header */}
+      {/* Header */}
       <div className="profile-header">
         <div className="profile-cover">
-          {/* Cover photo area - can be customized later */}
         </div>
         <div className="profile-main">
           <div className="profile-avatar-section">
@@ -328,7 +327,7 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Stats Section */}
+      {/* Status */}
       <div className="profile-stats">
         <div className="stat-item">
           <span className="stat-number">{posts.length}</span>
@@ -372,7 +371,7 @@ export default function Profile() {
         </button>
       </div>
 
-      {/* Content Area */}
+      {/* Conteúdo */}
       <div className="profile-content">
         {activeTab === 'posts' && (
           <div className="posts-list">

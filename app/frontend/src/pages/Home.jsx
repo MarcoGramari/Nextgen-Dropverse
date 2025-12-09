@@ -130,10 +130,10 @@ export default function Home() {
 
     try {
       await api.delete(`/posts/${postId}/comments/${commentId}`);
-      // Refresh comments
+      // Recarga de comentário
       const res = await api.get(`/posts/${postId}/comments`);
       setComments(prev => ({ ...prev, [postId]: res.data }));
-      // Update comment count
+      // Contador de update de comentário
       const updatedPosts = posts.map(post => post.id === postId ? { ...post, comments_count: Math.max((post.comments_count || 0) - 1, 0) } : post);
       setPosts(updatedPosts);
       applyFilter(updatedPosts);
@@ -174,9 +174,9 @@ export default function Home() {
 
   return (
     <div className="home-container">
-      {/* Featured Content */}
+      {/* Destaques */}
       <section className="featured-section">
-        <h2>DESTAQUES</h2>
+        <h2 className=".featured-text">DESTAQUES</h2>
         <div className="featured-grid">
           {posts.slice(0, 3).map((post) => (
             <div key={post.id} className="featured-card">
@@ -199,7 +199,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Filters Section */}
+      {/* Filtros */}
       <div className="filters-section">
         <button
           className={`filter-btn ${activeFilter === "Todos os Posts" ? "active" : ""}`}

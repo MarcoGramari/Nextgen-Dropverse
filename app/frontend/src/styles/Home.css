@@ -1,3 +1,4 @@
+
 .home-container {
   position: absolute;
   top: 0;
@@ -388,10 +389,31 @@
 
 .featured-section h2 {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
-  color: #f3f4f6;
-  font-family: 'Orbitron';
+  background: linear-gradient(135deg, #4c51bf 0%, #6d28d9 50%, #047857 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: -1px;
+  text-shadow: 0 0 40px rgba(76, 81, 191, 0.3);
+  animation: fadeInUp 1s ease-out, glow 2s ease-in-out infinite alternate;
+  position: relative;
+  margin: 0 0 30px 0;
+}
+
+.featured-section h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #4c51bf, #6d28d9, #047857);
+  border-radius: 2px;
+  animation: slideIn 1.2s ease-out 0.3s both;
 }
 
 .featured-grid {
@@ -545,6 +567,36 @@
   background: linear-gradient(135deg, #059669, #047857);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Keyframe Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 40px rgba(76, 81, 191, 0.3);
+  }
+  to {
+    text-shadow: 0 0 60px rgba(76, 81, 191, 0.6);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100px;
+  }
 }
 
 /* Responsive Design */
