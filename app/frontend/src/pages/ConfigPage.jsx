@@ -82,34 +82,6 @@ export default function ConfigPage() {
     }
   };
 
-  const handlePrivacySubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await api.put("/user/privacy", privacyData);
-      setMessage("Configurações de privacidade atualizadas!");
-    } catch (err) {
-      console.error(err);
-      setMessage("Erro ao atualizar privacidade");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleNotificationSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      await api.put("/user/notifications", notificationData);
-      setMessage("Preferências de notificação atualizadas!");
-    } catch (err) {
-      console.error(err);
-      setMessage("Erro ao atualizar notificações");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="settings-page modern">
       <h1 className="page-title">Configurações</h1>
@@ -119,7 +91,7 @@ export default function ConfigPage() {
         <form onSubmit={handleProfileSubmit}>
           <div className="form-group">
             <label>Nome:</label>
-            <input type="text" name="nome" value={profileData.nome} onChange={handleProfileChange} required />
+            <input type="text" name="nome" value={profileData.name} onChange={handleProfileChange} required />
           </div>
 
           <div className="form-group">
@@ -163,46 +135,6 @@ export default function ConfigPage() {
 
           <button type="submit" className="btn" disabled={loading}>
             {loading ? "Alterando..." : "Alterar Senha"}
-          </button>
-        </form>
-      </div>
-
-      <div className="settings-section card fade-in">
-        <h2>Privacidade</h2>
-        <form onSubmit={handlePrivacySubmit}>
-          <div className="form-group">
-            <label>Visibilidade do Perfil:</label>
-            <select name="profileVisibility" value={privacyData.profileVisibility} onChange={handlePrivacyChange}>
-              <option value="public">Público</option>
-              <option value="private">Privado</option>
-            </select>
-          </div>
-
-          <button type="submit" className="btn" disabled={loading}>
-            {loading ? "Salvando..." : "Salvar Privacidade"}
-          </button>
-        </form>
-      </div>
-
-      <div className="settings-section card fade-in">
-        <h2>Notificações</h2>
-        <form onSubmit={handleNotificationSubmit}>
-          <div className="form-group checkbox">
-            <label>
-              <input type="checkbox" name="emailNotifications" checked={notificationData.emailNotifications} onChange={handleNotificationChange} />
-              Receber notificações por email
-            </label>
-          </div>
-
-          <div className="form-group checkbox">
-            <label>
-              <input type="checkbox" name="pushNotifications" checked={notificationData.pushNotifications} onChange={handleNotificationChange} />
-              Receber notificações push
-            </label>
-          </div>
-
-          <button type="submit" className="btn" disabled={loading}>
-            {loading ? "Salvando..." : "Salvar Notificações"}
           </button>
         </form>
       </div>

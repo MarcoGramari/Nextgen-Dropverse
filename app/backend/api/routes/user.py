@@ -27,6 +27,7 @@ def get_profile():
         return jsonify({"error":"not authenticated"}), 401
     return jsonify({"user": user.to_dict()})
 
+
 @bp.route("/user/update", methods=["PUT"])
 def update_profile():
     user = get_current_user_from_header(request)
@@ -36,8 +37,98 @@ def update_profile():
     user.nome = data.get("nome", user.nome)
     user.bio = data.get("bio", user.bio)
     user.avatar = data.get("avatar", user.avatar)
+    
+    # Handle username update separately with validation
+    new_username = data.get("username")
+    if new_username and new_username != user.username:
+        # Check if username is already taken
+        existing_user = User.query.filter_by(username=new_username).first()
+        if existing_user and existing_user.id != user.id:
+            return jsonify({"error":"Username already taken"}), 400
+        
+        # Basic username validation
+        if len(new_username) < 3 or len(new_username) > 30:
+            return jsonify({"error":"Username must be between 3 and 30 characters"}), 400
+        
+        if not new_username.replace("_", "").replace("-", "").isalnum():
+            return jsonify({"error":"Username can only contain letters, numbers, underscores and hyphens"}), 400
+        
+        user.username = new_username
+    
     db.session.commit()
     return jsonify({"message":"updated","user": user.to_dict()})
+
+@bp.route("/user/change-username", methods=["PUT"])
+def change_username():
+    user = get_current_user_from_header(request)
+    if not user:
+        return jsonify({"error":"not authenticated"}), 401
+    data = request.json or {}
+    new_username = data.get("username")
+    
+    if not new_username:
+        return jsonify({"error":"Username is required"}), 400
+    
+    # Check if username is already taken
+    existing_user = User.query.filter_by(username=new_username).first()
+    if existing_user and existing_user.id != user.id:
+        return jsonify({"error":"Username already taken"}), 400
+    
+    # Basic username validation
+    if len(new_username) < 3 or len(new_username) > 30:
+        return jsonify({"error":"Username must be between 3 and 30 characters"}), 400
+    
+    if not new_username.replace("_", "").replace("-", "").isalnum():
+        return jsonify({"error":"Username can only contain letters, numbers, underscores and hyphens"}), 400
+    
+    user.username = new_username
+    db.session.commit()
+    return jsonify({"message":"Username updated successfully","user": user.to_dict()})
+
+@bp.route("/user/delete-account", methods=["DELETE"])
+def delete_account():
+    user = get_current_user_from_header(request)
+    if not user:
+        return jsonify({"error":"not authenticated"}), 401
+    
+    data = request.json or {}
+    password = data.get("password")
+    
+    if not password:
+        return jsonify({"error":"Password is required"}), 400
+    
+    # Verify password
+    if not user.check_password(password):
+        return jsonify({"error":"Invalid password"}), 400
+    
+    try:
+        # Delete user and all related data
+        # The cascade relationships should handle most of this automatically
+        
+        # Delete user's posts (which will cascade to likes, comments, etc.)
+        posts = Post.query.filter_by(autor_id=user.id).all()
+        for post in posts:
+            db.session.delete(post)
+        
+        # Delete user's purchases
+        purchases = Purchase.query.filter_by(comprador_id=user.id).all()
+        for purchase in purchases:
+            db.session.delete(purchase)
+        
+        # Delete user's follows (both as follower and followed)
+        follows = Follow.query.filter((Follow.follower_id == user.id) | (Follow.followed_id == user.id)).all()
+        for follow in follows:
+            db.session.delete(follow)
+        
+        # Delete the user
+        db.session.delete(user)
+        db.session.commit()
+        
+        return jsonify({"message":"Account deleted successfully"})
+        
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error":"Failed to delete account"}), 500
 
 @bp.route("/user/follow/<username>", methods=["POST"])
 def follow_user(username):

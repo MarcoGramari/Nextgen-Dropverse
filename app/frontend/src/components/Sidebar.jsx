@@ -28,6 +28,9 @@ export default function Sidebar({ onLogout }) {
     <>
       <aside className="sidebar">
         <div className="sidebar-header">
+
+
+          <img src="/simplified.png" alt="Dropverse Logo" className="sidebar-logo" />
           <h3>DROPVERSE</h3>
         </div>
 

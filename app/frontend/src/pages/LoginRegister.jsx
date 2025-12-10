@@ -94,10 +94,12 @@ export default function LoginRegister() {
     }
   }
 
-
-
   return (
     <div className="auth-wrapper">
+      <div className="auth-logo">
+
+        <img src="/simplified.png" alt="Dropverse Logo" />
+      </div>
       <div className="container" id="container" ref={containerRef}>
 
         {/* SIGN UP */}
