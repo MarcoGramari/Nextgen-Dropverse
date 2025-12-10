@@ -393,9 +393,14 @@ FodyWeavers.xsd
 # Windows Installer files from build outputs
 *.cab
 *.msi
-*.msix
+*.msveix
 *.msm
 *.msp
 
 # JetBrains Rider
 *.sln.iml
+
+
+#venv
+
+**/venv/
